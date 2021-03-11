@@ -15,6 +15,7 @@ module.exports = {
     'vue'
   ],
   rules: {
-    'no-undef': 'off'
+    'no-undef': 'off',
+    'node/handle-callback-err': 'off'
   }
 }

@@ -4,54 +4,60 @@
     <view class="text-area">
       <text class="title">{{ title }}</text>
     </view>
-    <view class="login">
+    <view class="login" v-if="showLogin">
       <button
         open-type="getUserInfo"
         type="default"
         @getuserinfo="handleGetUserInfo"
       >
-        获取用户个人信息
+        登录获取用户个人信息
       </button>
     </view>
   </view>
 </template>
 
 <script>
+import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 export default {
   data () {
     return {
-      title: 'Hello World'
+      title: 'Hello World',
+      showLogin: false
     }
   },
-  onLoad () {},
   methods: {
     handleGetUserInfo () {
-      uni.getUserInfo({
-        success: (e) => {
-          console.log(e)
-        },
-        fail: (e) => {
-          console.log(e)
-        }
-      })
+      getUserInfo()
+        .then(([err, res]) => {
+          console.log(res)
+          const { nickName, gender } = res?.userInfo
+          this.showLogin = false
+          uni.showLoading({
+            title: '登陆中',
+            mask: true
+          })
+          wxLogin().then(async ([err, res]) => {
+            // 自动注册登陆
+            const { data: token } = await this.$api.user.login(res.code, nickName, gender)
+            console.log(token)
+            // 换取token
+            // 存入vuex
+            this.showLogin = true
+            uni.hideLoading()
+            uni.showToast({
+              title: '登陆成功',
+              duration: 1000
+            })
+          })
+        })
+        .catch(err => {
+          console.log(err)
+          this.showLogin = true
+        })
     }
   },
-  mounted: () => {
-    uni.login({
-      success: (e) => {
-        console.log(e)
-        uni.request({
-          method: 'GET',
-          url: 'https://signtest.cn1.utools.club/wechat/auth/code2session',
-          data: {
-            code: e.code
-          },
-          success: function (res) {
-            console.log(res)
-          }
-        })
-      }
-    })
+  mounted () {
+    this.handleGetUserInfo()
   }
 }
 </script>
