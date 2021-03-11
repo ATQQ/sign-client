@@ -1,13 +1,8 @@
 <template>
   <view class="content">
-    <image
-      class="logo"
-      src="/static/logo.png"
-    ></image>
+    <image class="logo" src="/static/logo.png"></image>
     <view class="text-area">
-      <text class="title">{{
-        title
-      }}</text>
+      <text class="title">{{ title }}</text>
     </view>
     <view class="login">
       <button
@@ -23,43 +18,42 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      title: 'Hello World',
-    };
+      title: 'Hello World'
+    }
   },
-  onLoad() {},
+  onLoad () {},
   methods: {
-    handleGetUserInfo() {
+    handleGetUserInfo () {
       uni.getUserInfo({
         success: (e) => {
-          console.log(e);
+          console.log(e)
         },
         fail: (e) => {
-          console.log(e);
-        },
-      });
-    },
+          console.log(e)
+        }
+      })
+    }
   },
   mounted: () => {
     uni.login({
       success: (e) => {
-        console.log(e);
+        console.log(e)
         uni.request({
           method: 'GET',
-          url:
-            'https://signtest.cn1.utools.club/wechat/auth/code2session',
+          url: 'https://signtest.cn1.utools.club/wechat/auth/code2session',
           data: {
-            code: e.code,
+            code: e.code
           },
           success: function (res) {
-            console.log(res);
-          },
-        });
-      },
-    });
-  },
-};
+            console.log(res)
+          }
+        })
+      }
+    })
+  }
+}
 </script>
 
 <style>
