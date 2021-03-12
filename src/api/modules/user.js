@@ -1,10 +1,11 @@
 import http from '../../utils/http'
 
-function login (code, nickName, gender) {
+function login (code, nickname, gender, avatar) {
   return http.post('/user/login', {
     code,
-    nickName,
-    gender
+    nickname,
+    gender,
+    avatar
   })
 }
 

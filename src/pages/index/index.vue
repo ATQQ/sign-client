@@ -1,8 +1,9 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png"></image>
+    <image class="logo" :src="avatar"></image>
     <view class="text-area">
-      <text class="title">{{ title }}</text>
+      <text class="title">{{ nickname }}</text>
+      <text class="title">{{sex}} </text>
     </view>
     <view class="login" v-if="showLogin">
       <button
@@ -18,36 +19,59 @@
 
 <script>
 import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
+import { mapState, mapActions } from 'vuex'
+import { Gender } from '../../constants/index'
 export default {
   data () {
     return {
-      title: 'Hello World',
       showLogin: false
     }
   },
+  computed: {
+    ...mapState('user', ['avatar', 'nickname', 'gender']),
+    sex () {
+      return this.gender === Gender.MALE ? '♂' : '♀'
+    }
+  },
   methods: {
+    ...mapActions('user', ['setUserInfo', 'setToken']),
+    /**
+     * 授权获取基本信息并登录
+     */
     handleGetUserInfo () {
       getUserInfo()
         .then(([err, res]) => {
-          console.log(res)
-          const { nickName, gender } = res?.userInfo
+          if (!res) {
+            this.showLogin = true
+            return
+          }
+          const { nickName, gender, avatarUrl } = res?.userInfo
           this.showLogin = false
           uni.showLoading({
             title: '登陆中',
             mask: true
           })
+
+          // 存入vuex
+          this.setUserInfo({
+            nickname: nickName,
+            gender,
+            avatar: avatarUrl
+          })
+          // 登录
           wxLogin().then(async ([err, res]) => {
             // 自动注册登陆
-            const { data: token } = await this.$api.user.login(res.code, nickName, gender)
-            console.log(token)
+            const { data: token } = await this.$api.user.login(res.code, nickName, gender, avatarUrl)
             // 换取token
             // 存入vuex
-            this.showLogin = true
+
+            this.setToken(token)
             uni.hideLoading()
             uni.showToast({
               title: '登陆成功',
               duration: 1000
             })
+            // TODO: 跳转页面
           })
         })
         .catch(err => {
