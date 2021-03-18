@@ -1,16 +1,12 @@
 import axios from 'axios-miniprogram'
-// const http = new axios.Axios({
-//   adapter: Adapter(),
-//   // 配置拆分
-//   baseURL: 'https://signtest.cn1.utools.club',
 
-// })
 const http = axios
 http.defaults.baseURL =
-  'https://signtest.cn1.utools.club'
+  'https://signtest.cn1.utools.club' && 'http://localhost:3000'
 http.defaults.headers = {
   'content-Type': 'application/json'
 }
+
 
 http.interceptors.request.use(
   (config) => {

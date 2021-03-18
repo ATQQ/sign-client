@@ -3,7 +3,7 @@
     <image class="logo" :src="avatar"></image>
     <view class="text-area">
       <text class="title">{{ nickname }}</text>
-      <text class="title">{{sex}} </text>
+      <text class="title">{{ sex }} </text>
     </view>
     <view class="login" v-if="showLogin">
       <button
@@ -13,6 +13,14 @@
       >
         登录获取用户个人信息
       </button>
+    </view>
+    <view class="" v-else>
+      <navigator url="../personalInfo/index"
+        ><button type="default">个人信息</button></navigator
+      >
+      <navigator url="../activity/index"
+        ><button type="default">活动管理页</button></navigator
+      >
     </view>
   </view>
 </template>
@@ -61,20 +69,23 @@ export default {
           // 登录
           wxLogin().then(async ([err, res]) => {
             // 自动注册登陆
-            const { data: token } = await this.$api.user.login(res.code, nickName, gender, avatarUrl)
+            const { data: token } = await this.$api.user.login(
+              res.code,
+              nickName,
+              gender,
+              avatarUrl
+            )
             // 换取token
             // 存入vuex
-
             this.setToken(token)
             uni.hideLoading()
             uni.showToast({
               title: '登陆成功',
               duration: 1000
             })
-            // TODO: 跳转页面
           })
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err)
           this.showLogin = true
         })
