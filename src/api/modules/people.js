@@ -7,6 +7,19 @@ function joinActivity (name, pwd) {
   })
 }
 
+function getActiityPeople (activityId) {
+  return http.get(`/people/${activityId}`)
+}
+
+function rewritePeopleName (peopleId, name, activityId) {
+  return http.put(`/people/${peopleId}`, {
+    name,
+    activityId
+  })
+}
+
 export default {
-  joinActivity
+  joinActivity,
+  getActiityPeople,
+  rewritePeopleName
 }

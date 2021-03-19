@@ -64,6 +64,24 @@
             }
             
         }
+        ,{
+            "path" : "src/pages/activity/people/people",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动成员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/people/info/info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成员基本信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

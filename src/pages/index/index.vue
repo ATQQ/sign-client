@@ -27,7 +27,6 @@
     </view>
   </view>
 </template>
-
 <script>
 import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 import { mapState, mapActions } from 'vuex'
@@ -90,6 +89,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          uni.hideLoading()
           this.showLogin = true
         })
     }

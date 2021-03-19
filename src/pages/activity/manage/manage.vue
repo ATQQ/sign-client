@@ -1,6 +1,6 @@
 <template>
   <view>
-    <navigator url="./create/index">
+    <navigator url="../create/index">
       <button type="default">创建活动</button>
     </navigator>
     <view class="activityList">

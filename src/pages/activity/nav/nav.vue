@@ -3,6 +3,9 @@
     <navigator :url="`../info/info?id=${id}&is_admin=${isAdmin}`">
       <button type="default">基本信息</button>
     </navigator>
+    <navigator v-show="isAdmin" :url="`../people/people?id=${id}`">
+      <button type="default">活动成员</button>
+    </navigator>
   </view>
 </template>
 
