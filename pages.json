@@ -82,6 +82,33 @@
             }
             
         }
+        ,{
+            "path" : "src/pages/activity/signlist/signlist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "所有签到表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/signlist/create/create",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "开始新的签到",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/signlist/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "签到表概况",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

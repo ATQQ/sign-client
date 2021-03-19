@@ -6,6 +6,9 @@
     <navigator v-show="isAdmin" :url="`../people/people?id=${id}`">
       <button type="default">活动成员</button>
     </navigator>
+    <navigator v-show="isAdmin" :url="`../signlist/signlist?id=${id}`">
+      <button type="default">签到列表</button>
+    </navigator>
   </view>
 </template>
 

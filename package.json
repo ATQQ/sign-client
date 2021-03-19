@@ -26,6 +26,7 @@
     "eslint-plugin-vue": "^7.7.0"
   },
   "dependencies": {
-    "axios-miniprogram": "^1.2.2"
+    "axios-miniprogram": "^1.2.2",
+    "tki-qrcode": "^0.1.6"
   }
 }
