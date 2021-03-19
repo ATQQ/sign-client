@@ -18,8 +18,11 @@
       <navigator url="../personalInfo/index"
         ><button type="default">个人信息</button></navigator
       >
-      <navigator url="../activity/index"
-        ><button type="default">活动管理页</button></navigator
+      <navigator url="../activity/manage/manage"
+        ><button type="default">我创建的活动</button></navigator
+      >
+      <navigator url="../activity/join/join"
+        ><button type="default">我加入的活动</button></navigator
       >
     </view>
   </view>

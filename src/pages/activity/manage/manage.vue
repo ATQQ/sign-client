@@ -4,7 +4,7 @@
       <button type="default">创建活动</button>
     </navigator>
     <view class="activityList">
-      <view v-for="a in manageActivity" :key="a.activityId">
+      <view v-for="a in manageActivities" :key="a.activityId">
         <text @click="handleCheckInfo(a.activityId)">{{ a.name }}</text>
       </view>
     </view>
@@ -15,18 +15,18 @@
 import { mapActions, mapState } from 'vuex'
 export default {
   mounted () {
-    this.getManageActivity()
+    this.getManageActivities()
   },
   methods: {
-    ...mapActions('activity', ['getManageActivity']),
+    ...mapActions('activity', ['getManageActivities']),
     handleCheckInfo (id) {
       uni.navigateTo({
-        url: `nav/nav?id=${id}`
+        url: `../nav/nav?id=${id}&is_admin=true`
       })
     }
   },
   computed: {
-    ...mapState('activity', ['manageActivity'])
+    ...mapState('activity', ['manageActivities'])
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <view>
-    <navigator :url="`../info/info?id=${id}`">
+    <navigator :url="`../info/info?id=${id}&is_admin=${isAdmin}`">
       <button type="default">基本信息</button>
     </navigator>
   </view>
@@ -10,11 +10,13 @@
 export default {
   data () {
     return {
-      id: ''
+      id: '',
+      isAdmin: ''
     }
   },
   onLoad (params) {
     this.id = params.id
+    this.isAdmin = !!params.is_admin
   }
 }
 </script>

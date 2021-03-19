@@ -2,11 +2,10 @@ import axios from 'axios-miniprogram'
 
 const http = axios
 http.defaults.baseURL =
-  'https://signtest.cn1.utools.club' && 'http://localhost:3000'
+  'https://signtest.cn1.utools.club' || 'http://localhost:3000'
 http.defaults.headers = {
   'content-Type': 'application/json'
 }
-
 
 http.interceptors.request.use(
   (config) => {

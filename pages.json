@@ -13,12 +13,6 @@
 			}
 		},
 		{
-			"path": "src/pages/activity/index",
-			"style": {
-				"navigationBarTitleText": "活动列表页"
-			}
-		}
-	    ,{
             "path" : "src/pages/activity/create/index",
             "style" :{
                 "navigationBarTitleText": "创建活动"
@@ -39,6 +33,33 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "活动导航",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/manage/manage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我管理的活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/join/join",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我加入的活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/join/activity/activity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "口令加入",
                 "enablePullDownRefresh": false
             }
             

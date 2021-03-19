@@ -1,10 +1,13 @@
 import http from '../../utils/http'
 
-function getManageActivity () {
+function getManageActivities () {
   return http.get('/activity/list')
 }
 
 function createActivity (name, description, format = '', count = 0) {
+  if (!format) {
+    format = '姓名'
+  }
   return http.post('/activity/create', {
     name,
     description,
@@ -16,8 +19,18 @@ function createActivity (name, description, format = '', count = 0) {
 function updateActivityInfo (id, options) {
   return http.put(`/activity/info/${id}`, options)
 }
+
+function getJoinActivities () {
+  return http.get('/activity/list/join')
+}
+
+function getActivityByPwd (pwd) {
+  return http.get(`/activity/info/${pwd}`)
+}
 export default {
-  getManageActivity,
+  getManageActivities,
   createActivity,
-  updateActivityInfo
+  updateActivityInfo,
+  getJoinActivities,
+  getActivityByPwd
 }

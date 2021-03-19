@@ -21,10 +21,14 @@
         <text>{{ activity.pwd }}</text>
       </view>
     </view>
-    <button type="default" @click="rewrite = !rewrite" v-show="!rewrite">
+    <button
+      type="default"
+      @click="rewrite = !rewrite"
+      v-show="!rewrite && isAdmin"
+    >
       修改基本信息
     </button>
-    <button type="default" @click="handleRewrite" v-show="rewrite">
+    <button type="default" @click="handleRewrite" v-show="rewrite && isAdmin">
       完成修改
     </button>
   </view>
@@ -36,11 +40,13 @@ export default {
   data () {
     return {
       activity: {},
-      rewrite: false
+      rewrite: false,
+      isAdmin: false
     }
   },
   onLoad (params) {
     this.activity = this.getActivityById(params.id)
+    this.isAdmin = !!params.is_admin
   },
   computed: {
     ...mapGetters('activity', ['getActivityById'])

@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('activity', ['getManageActivity']),
+    ...mapActions('activity', ['getManageActivities']),
     handleCreate () {
       const { name, description, format, count } = this
       this.$api.activity
@@ -36,7 +36,7 @@ export default {
               title: '创建成功',
               duration: 1000,
               success: () => {
-                this.getManageActivity()
+                this.getManageActivities()
                 uni.navigateBack()
               }
             })

@@ -1,15 +1,19 @@
 import api from '../../api/index.js'
 const state = {
-  manageActivity: []
+  manageActivities: [],
+  joinActivities: []
 }
 
 const mutations = {
-  setManageActivity (state, payload) {
-    state.manageActivity = payload
+  setManageActivities (state, payload) {
+    state.manageActivities = payload
+  },
+  setJoinActivities (state, payload) {
+    state.joinActivities = payload
   },
   updateActivityById (state, payload) {
     const { id, ...options } = payload
-    const activity = state.manageActivity.find(
+    const activity = state.manageActivities.find(
       (activity) =>
         activity.activityId === id
     )
@@ -19,19 +23,22 @@ const mutations = {
 
 const getters = {
   getActivityById: (state) => (id) => {
-    return state.manageActivity.find(
+    return state.manageActivities.find(
       (activity) =>
         activity.activityId === id
     )
   }
 }
 const actions = {
-  getManageActivity (context, payload) {
+  getManageActivities (
+    context,
+    payload
+  ) {
     api.activity
-      .getManageActivity()
+      .getManageActivities()
       .then((res) => {
         context.commit(
-          'setManageActivity',
+          'setManageActivities',
           res.data.activities
         )
       })
@@ -44,6 +51,16 @@ const actions = {
         context.commit(
           'updateActivityById',
           payload
+        )
+      })
+  },
+  getJoinActivities (context, payload) {
+    api.activity
+      .getJoinActivities()
+      .then((res) => {
+        context.commit(
+          'setJoinActivities',
+          res.data.activities
         )
       })
   }
