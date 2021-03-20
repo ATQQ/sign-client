@@ -32,27 +32,42 @@ export default {
       })
     },
     handleJoinActivity () {
-      // 获取活动信息
-      this.$api.activity.getActivityByPwd(this.pwd).then((res) => {
-        const { code, data } = res
-        if (code === 10002) {
-          uni.showToast({
-            icon: 'none',
-            mask: true,
-            duration: 1000,
-            title: '口令有误活动不存在'
-          })
-          return
-        }
-        uni.navigateTo({
-          url: `activity/activity?activity=${JSON.stringify(data)}`
-        })
+      uni.showLoading({
+        title: '查询活动信息中',
+        mask: true
       })
-      // 跳转加入活动页面
+      // 获取活动信息
+      this.$api.activity
+        .getActivityByPwd(this.pwd)
+        .then((res) => {
+          uni.hideLoading()
+          const { code, data } = res
+          if (code === 10002) {
+            uni.showToast({
+              icon: 'none',
+              mask: true,
+              duration: 1000,
+              title: '口令有误活动不存在'
+            })
+            return
+          }
+          // 跳转加入活动页面
+          uni.navigateTo({
+            url: `activity/activity?activity=${JSON.stringify(data)}`
+          })
+        })
+        .catch(() => {
+          uni.hideLoading()
+        })
     }
   },
   computed: {
     ...mapState('activity', ['joinActivities'])
+  },
+  onLoad (params) {
+    if (params.pwd) {
+      this.pwd = params.pwd
+    }
   }
 }
 </script>

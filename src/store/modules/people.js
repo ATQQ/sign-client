@@ -21,7 +21,7 @@ const actions = {
     context,
     payload
   ) {
-    api.people
+    return api.people
       .getActiityPeople(payload)
       .then((res) => {
         context.commit(

@@ -109,6 +109,15 @@
             }
             
         }
+        ,{
+            "path" : "src/pages/activity/signlist/detail/info/info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "签到状况详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
