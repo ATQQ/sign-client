@@ -1,20 +1,95 @@
 <template>
   <view class="content">
-    <image class="logo" :src="avatar"></image>
-    <view class="text-area">
-      <text class="title">{{ nickname }}</text>
-      <text class="title">{{ sex }} </text>
+    <view class="info-container plr20">
+      <view class="avatar-container">
+        <image class="avatar" :src="avatar"></image>
+        <button
+          v-if="showLogin"
+          class="login"
+          open-type="getUserInfo"
+          @getuserinfo="handleGetUserInfo"
+        >
+          点击登录
+        </button>
+        <view v-else class="info">
+          <text class="nickname">{{ nickname }}</text>
+          <!-- TODO:性别用颜色加以区分 -->
+          <text class="sex">{{ sex }}</text>
+        </view>
+      </view>
     </view>
-    <view class="login" v-if="showLogin">
-      <button
-        open-type="getUserInfo"
-        type="default"
-        @getuserinfo="handleGetUserInfo"
+
+    <view class="plr20 fun-title">
+      <van-divider
+        hairline
+        contentPosition="center"
+        customStyle="color: #1989fa; border-color: #1989fa; font-size: 16px;"
       >
-        登录获取用户个人信息
-      </button>
+        签到区域
+      </van-divider>
     </view>
-    <view class="" v-else>
+    <view class="funs plr20">
+      <van-row gutter="100">
+        <van-col span="12">
+          <view class="fun-item" @click="handleScan">
+            <view class="icon-bg-green icon-container">
+              <van-icon color="#07c160" size="50px" name="scan"></van-icon>
+            </view>
+            <text class="text">扫码签到</text>
+          </view>
+        </van-col>
+        <van-col span="12">
+          <view class="fun-item">
+            <view class="icon-bg-blue icon-container">
+              <van-icon
+                color="#1989fa"
+                size="50px"
+                name="location-o"
+              ></van-icon>
+            </view>
+            <text class="text">定位签到</text>
+          </view>
+        </van-col>
+      </van-row>
+    </view>
+    <view class="plr20 fun-title">
+      <van-divider
+        hairline
+        contentPosition="center"
+        customStyle="color: #1989fa; border-color: #1989fa; font-size: 16px;"
+      >
+        功能区域
+      </van-divider>
+    </view>
+    <view class="plr20 fun-title">
+      <van-row gutter="20">
+        <van-col span="8">
+          <navigator class="fun-item" url="../activity/join/join">
+            <view class="icon-bg-green icon-container">
+              <van-icon color="#07c160" size="40px" name="friends-o"></van-icon>
+            </view>
+            <text class="text">加入活动</text>
+          </navigator>
+        </van-col>
+        <van-col span="8">
+          <navigator class="fun-item" url="../activity/create/index">
+            <view class="icon-bg-blue icon-container">
+              <van-icon color="#1989fa" size="40px" name="award-o"></van-icon>
+            </view>
+            <text class="text">创建活动</text>
+          </navigator>
+        </van-col>
+        <van-col span="8">
+          <navigator class="fun-item" url="../activity/manage/manage">
+            <view class="icon-bg-red icon-container">
+              <van-icon color="#ee0a24" size="40px" name="setting-o"></van-icon>
+            </view>
+            <text class="text">活动管理</text>
+          </navigator>
+        </van-col>
+      </van-row>
+    </view>
+    <!-- <view class="" v-else>
       <navigator url="../personalInfo/index"
         ><button type="default">个人信息</button></navigator
       >
@@ -25,8 +100,7 @@
         ><button type="default">我加入的活动</button></navigator
       >
       <button type="default" @click="handleScan">扫一扫签到</button>
-    </view>
-	<van-button>测试</van-button>
+    </view> -->
   </view>
 </template>
 <script>
@@ -175,33 +249,79 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .content {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
+.plr20 {
+  padding: 0 20rpx;
 }
-
-.text-area {
+.info-container {
+  background-color: $c-primary;
+  padding: 20rpx;
+  width: 100%;
+  .avatar-container {
+    padding: 20rpx;
+    margin: 20rpx 40rpx;
+    border-radius: 10rpx;
+    background-color: #fff;
+    box-shadow: 0 0 5rpx #ddd;
+    display: flex;
+    align-items: center;
+    .avatar {
+      border-radius: 50%;
+      width: 100rpx;
+      height: 100rpx;
+    }
+    .login {
+      background-color: #fff;
+      padding: 0;
+      border: none;
+      text-align: left;
+      margin-left: 40rpx;
+      flex-grow: 1;
+      font-size: 1rem;
+    }
+    .login::after {
+      border: none;
+    }
+    .info {
+      text-align: center;
+      font-size: 1rem;
+      margin-left: 40rpx;
+      .sex {
+        margin-left: 10rpx;
+      }
+    }
+  }
+}
+.fun-title {
+  width: 86%;
+}
+.fun-item {
   display: flex;
-  justify-content: center;
-}
-
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
-}
-.login {
-  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  .icon-container {
+    border-radius: 50%;
+    padding: 30rpx;
+  }
+  .icon-bg-green {
+    background-color: #defcec;
+  }
+  .icon-bg-blue {
+    background-color: #dce9f6;
+  }
+  .icon-bg-red {
+    background-color: #fff1f2;
+  }
+  .text {
+    padding-top: 16rpx;
+    font-size: 0.8rem;
+    text-align: center;
+  }
 }
 </style>
