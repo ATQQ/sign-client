@@ -1,131 +1,148 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "src/pages/index/index",
-			"style": {
-				"navigationBarTitleText": "签到小程序-首页",
-				"usingComponents":{
-					"van-button":"/wxcomponents/@vant/weapp/dist/button/index"
-				}
-			}
-		},
-		{
-			"path": "src/pages/personalInfo/index",
-			"style": {
-				"navigationBarTitleText": "个人信息页"
-			}
-		},
-		{
-            "path" : "src/pages/activity/create/index",
-            "style" :{
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path": "src/pages/index/index",
+            "style": {
+                "navigationBarTitleText": "签到小程序-首页"
+            }
+        },
+        {
+            "path": "src/pages/personalInfo/index",
+            "style": {
+                "navigationBarTitleText": "个人信息页"
+            }
+        },
+        {
+            "path": "src/pages/activity/create/index",
+            "style": {
                 "navigationBarTitleText": "创建活动"
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/info/info",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/info/info",
+            "style": {
                 "navigationBarTitleText": "活动详情页",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/nav/nav",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/nav/nav",
+            "style": {
                 "navigationBarTitleText": "活动导航",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/manage/manage",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/manage/manage",
+            "style": {
                 "navigationBarTitleText": "我管理的活动",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/join/join",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/join/join",
+            "style": {
                 "navigationBarTitleText": "我加入的活动",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/join/activity/activity",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/join/activity/activity",
+            "style": {
                 "navigationBarTitleText": "口令加入",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/people/people",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/people/people",
+            "style": {
                 "navigationBarTitleText": "活动成员",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/people/info/info",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/people/info/info",
+            "style": {
                 "navigationBarTitleText": "成员基本信息",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/signlist/signlist",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/signlist/signlist",
+            "style": {
                 "navigationBarTitleText": "所有签到表",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/signlist/create/create",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/signlist/create/create",
+            "style": {
                 "navigationBarTitleText": "开始新的签到",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/signlist/detail/detail",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/signlist/detail/detail",
+            "style": {
                 "navigationBarTitleText": "签到表概况",
                 "enablePullDownRefresh": false
             }
-            
-        }
-        ,{
-            "path" : "src/pages/activity/signlist/detail/info/info",
-            "style" :                                                                                    
-            {
+        },
+        {
+            "path": "src/pages/activity/signlist/detail/info/info",
+            "style": {
                 "navigationBarTitleText": "签到状况详情",
                 "enablePullDownRefresh": false
             }
-            
         }
     ],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8",
+        "usingComponents": {
+            "van-button": "/wxcomponents/@vant/weapp/dist/button/index",
+            "van-divider": "/wxcomponents/@vant/weapp/dist/divider/index",
+            "van-image": "/wxcomponents/@vant/weapp/dist/image/index",
+            "van-icon": "/wxcomponents/@vant/weapp/dist/icon/index",
+            "van-cell": "/wxcomponents/@vant/weapp/dist/cell/index",
+            "van-cell-group": "/wxcomponents/@vant/weapp/dist/cell-group/index",
+            "van-row": "/wxcomponents/@vant/weapp/dist/row/index",
+            "van-col": "/wxcomponents/@vant/weapp/dist/col/index",
+            "van-popup": "/wxcomponents/@vant/weapp/dist/popup/index",
+            "van-checkbox": "/wxcomponents/@vant/weapp/dist/checkbox/index",
+            "van-checkbox-group": "/wxcomponents/@vant/weapp/dist/checkbox-group/index",
+            "van-field": "/wxcomponents/@vant/weapp/dist/field/index",
+            "van-radio": "/wxcomponents/@vant/weapp/dist/radio/index",
+            "van-radio-group": "/wxcomponents/@vant/weapp/dist/radio-group/index",
+            "van-search": "/wxcomponents/@vant/weapp/dist/search/index",
+            "van-slider": "/wxcomponents/@vant/weapp/dist/slider/index",
+            "van-stepper": "/wxcomponents/@vant/weapp/dist/stepper/index",
+            "van-switch": "/wxcomponents/@vant/weapp/dist/switch/index",
+            "van-uploader": "/wxcomponents/@vant/weapp/dist/uploader/index",
+            "van-action-sheet": "/wxcomponents/@vant/weapp/dist/action-sheet/index",
+            "van-dialog": "/wxcomponents/@vant/weapp/dist/dialog/index",
+            "van-dropdown-menu": "/wxcomponents/@vant/weapp/dist/dropdown-menu/index",
+            "van-dropdown-item": "/wxcomponents/@vant/weapp/dist/dropdown-item/index",
+            "van-notify": "/wxcomponents/@vant/weapp/dist/notify/index",
+            "van-overlay": "/wxcomponents/@vant/weapp/dist/overlay/index",
+            "van-share-sheet": "/wxcomponents/@vant/weapp/dist/share-sheet/index",
+            "van-swipe-cell": "/wxcomponents/@vant/weapp/dist/swipe-cell/index",
+            "van-toast": "/wxcomponents/@vant/weapp/dist/toast/index",
+            "van-collapse": "/wxcomponents/@vant/weapp/dist/collapse/index",
+            "van-collapse-item": "/wxcomponents/@vant/weapp/dist/collapse-item/index",
+            "van-circle": "/wxcomponents/@vant/weapp/dist/circle/index",
+            "van-count-down": "/wxcomponents/@vant/weapp/dist/count-down/index",
+            "van-empty": "/wxcomponents/@vant/weapp/dist/empty/index",
+            "van-notice-bar": "/wxcomponents/@vant/weapp/dist/notice-bar/index",
+            "van-panel": "/wxcomponents/@vant/weapp/dist/panel/index",
+            "van-progress": "/wxcomponents/@vant/weapp/dist/progress/index",
+            "van-sticky": "/wxcomponents/@vant/weapp/dist/sticky/index",
+            "van-tag": "/wxcomponents/@vant/weapp/dist/tag/index",
+            "van-nav-bar": "/wxcomponents/@vant/weapp/dist/nav-bar/index",
+            "van-tab": "/wxcomponents/@vant/weapp/dist/tab/index",
+            "van-tabs": "/wxcomponents/@vant/weapp/dist/tabs/index"
+        }
+    }
 }
