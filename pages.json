@@ -3,7 +3,10 @@
 		{
 			"path": "src/pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "签到小程序-首页",
+				"usingComponents":{
+					"van-button":"/wxcomponents/@vant/weapp/dist/button/index"
+				}
 			}
 		},
 		{

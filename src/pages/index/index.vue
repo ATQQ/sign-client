@@ -26,6 +26,7 @@
       >
       <button type="default" @click="handleScan">扫一扫签到</button>
     </view>
+	<van-button>测试</van-button>
   </view>
 </template>
 <script>
