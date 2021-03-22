@@ -1,0 +1,34 @@
+.join-activity {
+  background-color: $c-primary;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title{
+	text-align: center;
+	color: #fff;
+	font-size: 2rem;
+	padding-top: 20vh;
+}
+.input-container{
+	padding: 60rpx 100rpx;
+	input{
+		border-radius: 20rpx;
+		    background-color: #fff;
+		    padding: 10rpx;
+		    height: 3rem;
+		    line-height: 3rem;
+		    font-size: 3rem;
+		    color: black;
+			text-align: center;
+			letter-spacing: 0rpx;
+	}
+}
+.tips{
+	text-align: center;
+	color: #FFF1F2;
+	font-size: 0.5rem;
+	margin-top: 20rpx;
+}

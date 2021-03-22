@@ -1,0 +1,72 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $c-primary;
+  padding: 20rpx 30rpx;
+}
+.plr20 {
+  padding: 0 20rpx;
+}
+.card {
+  background-color: #fff;
+  width: 95%;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 0 5rpx #ddd;
+  margin-bottom: 20rpx;
+}
+.avatar-container {
+  display: flex;
+  align-items: center;
+  .avatar {
+    border-radius: 50%;
+    width: 130rpx;
+    height: 130rpx;
+  }
+  .login {
+    background-color: #fff;
+    padding: 0;
+    border: none;
+    text-align: left;
+    margin-left: 40rpx;
+    flex-grow: 1;
+    font-size: 1rem;
+  }
+  .login::after {
+    border: none;
+  }
+  .info {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-left: 40rpx;
+    .sex {
+      margin-left: 10rpx;
+    }
+  }
+}
+.fun-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10rpx;
+  .icon-container {
+    border-radius: 50%;
+    padding: 30rpx;
+  }
+  .icon-bg-green {
+    background-color: $bg-green;
+  }
+  .icon-bg-blue {
+    background-color: $bg-blue;
+  }
+  .icon-bg-red {
+    background-color: $bg-red;
+  }
+  .text {
+    padding-top: 16rpx;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}

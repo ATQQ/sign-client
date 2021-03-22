@@ -1,12 +1,71 @@
 <template>
   <view>
-    <text>加入活动</text>
-    <view class="" v-if="activity.activityId">
-      <input type="text" v-model="activity.pwd" />
-      <input :placeholder="activity.nameFormat" type="text" v-model="name1" />
-      <input placeholder="请再次录入" type="text" v-model="name2" />
+    <view class="group-title">活动信息</view>
+    <van-cell-group>
+      <van-cell title="活动名称" :value="activity.name" />
+      <van-cell title="活动简介">
+        <view class="break-all">
+          {{ activity.description }}
+        </view>
+      </van-cell>
+      <van-cell title="活动口令" :value="activity.pwd" />
+      <van-cell
+        title="要求姓名格式"
+        label="名称处内容填写参照此格式"
+        :value="activity.nameFormat"
+      />
+    </van-cell-group>
+    <view class="group-title" style="padding-top: 32px">需填写信息</view>
+    <van-cell-group>
+      <van-field
+        label="口令"
+        :value="activity.pwd"
+        @change="
+          (e) => {
+            activity.pwd = e.detail;
+          }
+        "
+        placeholder="请输入课程口令"
+        required
+        input-align="right"
+        :maxlength="6"
+      />
+      <van-field
+        label="名称"
+        :value="name1"
+        @change="
+          (e) => {
+            name1 = e.detail;
+          }
+        "
+        placeholder="在活动中显示的名称"
+        required
+        input-align="right"
+      />
+      <van-field
+        label="名称"
+        :value="name2"
+        @change="
+          (e) => {
+            name2 = e.detail;
+          }
+        "
+        placeholder="请再次输入名称"
+        required
+        input-align="right"
+      />
+    </van-cell-group>
+    <view class="sure-container">
+      <van-button
+        :plain="!isInputOk"
+        :disabled="!isInputOk"
+        :round="isInputOk"
+        type="primary"
+        size="large"
+        @click="handleJoin"
+        >确认加入</van-button
+      >
     </view>
-    <button type="default" @click="handleJoin">确认加入</button>
   </view>
 </template>
 
@@ -21,7 +80,18 @@ export default {
     }
   },
   onLoad (params) {
+    // const testData =   {"activityId":"6056105b35bde50007e9b4a0","nameFormat":"姓名","peopleCount":"100","pwd":"e9b4a0","name":"serverless","description":"真牛逼","userId":"o4g1P5Dz3edA4XlkirYshrAK7S5Y"}
+    //    this.activity = testData
     this.activity = JSON.parse(params.activity)
+  },
+  computed: {
+    isInputOk () {
+      return (
+        this.name1 &&
+        this.name1 === this.name2 &&
+        this.activity.pwd.length === 6
+      )
+    }
   },
   methods: {
     ...mapActions('activity', ['getJoinActivities']),
@@ -69,5 +139,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.group-title {
+  margin: 0;
+  padding: 16px 18px;
+  color: rgba(69, 90, 100, 0.6);
+  font-weight: normal;
+  font-size: 14px;
+  background-color: rgb(248, 248, 248);
+  line-height: 16px;
+}
+.break-all {
+  word-break: break-all;
+}
+.sure-container {
+  padding: 20rpx;
+}
 </style>

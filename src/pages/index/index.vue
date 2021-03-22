@@ -1,116 +1,128 @@
 <template>
   <view class="content">
-    <view class="info-container plr20">
-      <view class="avatar-container">
-        <image class="avatar" :src="avatar"></image>
-        <button
-          v-if="showLogin"
-          class="login"
-          open-type="getUserInfo"
-          @getuserinfo="handleGetUserInfo"
-        >
-          点击登录
-        </button>
-        <view v-else class="info">
-          <text class="nickname">{{ nickname }}</text>
-          <!-- TODO:性别用颜色加以区分 -->
-          <text class="sex">{{ sex }}</text>
-        </view>
+    <!-- 登录 -->
+    <view class="avatar-container card">
+      <image class="avatar" :src="avatar"></image>
+      <button
+        v-if="showLogin"
+        class="login"
+        open-type="getUserInfo"
+        @getuserinfo="handleGetUserInfo"
+      >
+        点击登录
+      </button>
+      <view v-else class="info">
+        你好，
+        <text class="nickname">{{ nickname }}</text>
+        <!-- TODO:性别用颜色加以区分 -->
+        <text class="sex">{{ sex }}</text>
       </view>
     </view>
-
-    <view class="plr20 fun-title">
-      <van-divider
-        hairline
-        contentPosition="center"
-        customStyle="color: #1989fa; border-color: #1989fa; font-size: 16px;"
-      >
-        签到区域
-      </van-divider>
+    <!-- 签到区域 -->
+    <view class="card">
+      <view class="plr20 fun-title">
+        <van-divider
+          hairline
+          contentPosition="center"
+          customStyle="margin-top:0; color: #1989fa; border-color: #1989fa; font-size: 16px;"
+        >
+          参与签到
+        </van-divider>
+      </view>
+      <view class="funs plr20">
+        <van-row>
+          <van-col span="12">
+            <view class="fun-item" @click="handleScan">
+              <view class="icon-bg-green icon-container">
+                <van-icon color="#07c160" size="50px" name="scan"></van-icon>
+              </view>
+              <text class="text">扫码签到</text>
+            </view>
+          </van-col>
+          <van-col span="12">
+            <view class="fun-item">
+              <view class="icon-bg-blue icon-container">
+                <van-icon
+                  color="#1989fa"
+                  size="50px"
+                  name="location-o"
+                ></van-icon>
+              </view>
+              <text class="text">定位签到</text>
+            </view>
+          </van-col>
+        </van-row>
+      </view>
     </view>
-    <view class="funs plr20">
-      <van-row gutter="100">
-        <van-col span="12">
-          <view class="fun-item" @click="handleScan">
-            <view class="icon-bg-green icon-container">
-              <van-icon color="#07c160" size="50px" name="scan"></van-icon>
-            </view>
-            <text class="text">扫码签到</text>
-          </view>
-        </van-col>
-        <van-col span="12">
-          <view class="fun-item">
-            <view class="icon-bg-blue icon-container">
-              <van-icon
-                color="#1989fa"
-                size="50px"
-                name="location-o"
-              ></van-icon>
-            </view>
-            <text class="text">定位签到</text>
-          </view>
-        </van-col>
-      </van-row>
+    <!-- 功能区域 -->
+    <view class="card">
+      <view class="plr20 fun-title">
+        <van-divider
+          hairline
+          contentPosition="center"
+          customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
+        >
+          活动相关
+        </van-divider>
+      </view>
+      <view class="plr20 funs">
+        <van-row gutter="20">
+          <van-col span="8" v-for="(fun, idx) in funsConfig" :key="idx">
+            <navigator class="fun-item" :url="fun.url">
+              <view class="icon-container" :class="[`icon-${fun.bg}`]">
+                <van-icon
+                  :color="fun.color"
+                  size="40px"
+                  :name="fun.icon"
+                ></van-icon>
+              </view>
+              <text class="text">{{ fun.text }}</text>
+            </navigator>
+          </van-col>
+        </van-row>
+      </view>
     </view>
-    <view class="plr20 fun-title">
-      <van-divider
-        hairline
-        contentPosition="center"
-        customStyle="color: #1989fa; border-color: #1989fa; font-size: 16px;"
-      >
-        功能区域
-      </van-divider>
+    <!-- 暂定 -->
+    <view class="card">
+      <view class="plr20 fun-title">
+        <van-divider
+          hairline
+          contentPosition="center"
+          customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
+        >
+          暂定
+        </van-divider>
+      </view>
+      <view class="plr20 funs">
+        <van-row gutter="20">
+          <van-col span="8" v-for="(fun, idx) in infoConfig" :key="idx">
+            <navigator class="fun-item" :url="fun.url">
+              <view class="icon-container" :class="[`icon-${fun.bg}`]">
+                <van-icon
+                  :color="fun.color"
+                  size="40px"
+                  :name="fun.icon"
+                ></van-icon>
+              </view>
+              <text class="text">{{ fun.text }}</text>
+            </navigator>
+          </van-col>
+        </van-row>
+      </view>
     </view>
-    <view class="plr20 fun-title">
-      <van-row gutter="20">
-        <van-col span="8">
-          <navigator class="fun-item" url="../activity/join/join">
-            <view class="icon-bg-green icon-container">
-              <van-icon color="#07c160" size="40px" name="friends-o"></van-icon>
-            </view>
-            <text class="text">加入活动</text>
-          </navigator>
-        </van-col>
-        <van-col span="8">
-          <navigator class="fun-item" url="../activity/create/index">
-            <view class="icon-bg-blue icon-container">
-              <van-icon color="#1989fa" size="40px" name="award-o"></van-icon>
-            </view>
-            <text class="text">创建活动</text>
-          </navigator>
-        </van-col>
-        <van-col span="8">
-          <navigator class="fun-item" url="../activity/manage/manage">
-            <view class="icon-bg-red icon-container">
-              <van-icon color="#ee0a24" size="40px" name="setting-o"></van-icon>
-            </view>
-            <text class="text">活动管理</text>
-          </navigator>
-        </van-col>
-      </van-row>
-    </view>
-    <!-- <view class="" v-else>
-      <navigator url="../personalInfo/index"
-        ><button type="default">个人信息</button></navigator
-      >
-      <navigator url="../activity/manage/manage"
-        ><button type="default">我创建的活动</button></navigator
-      >
-      <navigator url="../activity/join/join"
-        ><button type="default">我加入的活动</button></navigator
-      >
-      <button type="default" @click="handleScan">扫一扫签到</button>
-    </view> -->
   </view>
 </template>
 <script>
 import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 import { mapState, mapActions } from 'vuex'
 import { Gender, SignMethod, StatusCode } from '../../constants/index'
+import { funsConfig, infoConfig } from './config'
 export default {
   data () {
     return {
-      showLogin: true
+      showLogin: true,
+      funsConfig,
+      infoConfig
     }
   },
   computed: {
@@ -121,6 +133,9 @@ export default {
   },
   methods: {
     ...mapActions('user', ['setUserInfo', 'setToken']),
+    /**
+     * 扫一扫签到
+     */
     handleScan () {
       uni.scanCode({
         onlyFromCamera: true,
@@ -250,78 +265,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.plr20 {
-  padding: 0 20rpx;
-}
-.info-container {
-  background-color: $c-primary;
-  padding: 20rpx;
-  width: 100%;
-  .avatar-container {
-    padding: 20rpx;
-    margin: 20rpx 40rpx;
-    border-radius: 10rpx;
-    background-color: #fff;
-    box-shadow: 0 0 5rpx #ddd;
-    display: flex;
-    align-items: center;
-    .avatar {
-      border-radius: 50%;
-      width: 100rpx;
-      height: 100rpx;
-    }
-    .login {
-      background-color: #fff;
-      padding: 0;
-      border: none;
-      text-align: left;
-      margin-left: 40rpx;
-      flex-grow: 1;
-      font-size: 1rem;
-    }
-    .login::after {
-      border: none;
-    }
-    .info {
-      text-align: center;
-      font-size: 1rem;
-      margin-left: 40rpx;
-      .sex {
-        margin-left: 10rpx;
-      }
-    }
-  }
-}
-.fun-title {
-  width: 86%;
-}
-.fun-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .icon-container {
-    border-radius: 50%;
-    padding: 30rpx;
-  }
-  .icon-bg-green {
-    background-color: #defcec;
-  }
-  .icon-bg-blue {
-    background-color: #dce9f6;
-  }
-  .icon-bg-red {
-    background-color: #fff1f2;
-  }
-  .text {
-    padding-top: 16rpx;
-    font-size: 0.8rem;
-    text-align: center;
-  }
-}
+@import './index.scss';
 </style>

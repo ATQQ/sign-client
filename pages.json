@@ -49,7 +49,7 @@
         {
             "path": "src/pages/activity/join/activity/activity",
             "style": {
-                "navigationBarTitleText": "口令加入",
+                "navigationBarTitleText": "加入活动",
                 "enablePullDownRefresh": false
             }
         },

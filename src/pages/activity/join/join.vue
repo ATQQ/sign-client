@@ -1,15 +1,35 @@
 <template>
-  <view>
-    <view class="">
-      <input type="text" v-model="pwd" placeholder="输入课程口令加入" />
-      <button type="default" @click="handleJoinActivity">加入活动</button>
+  <view class="join-activity">
+    <view class="title">
+      <text>加入活动</text>
     </view>
-    <text class="title"> 我加入的活动 </text>
+    <view class="tips">
+      <text>(6位数字字母组合)</text>
+    </view>
+    <view class="input-container">
+      <input
+        type="text"
+        maxlength="6"
+        v-model="pwd"
+        placeholder-style="text-align:center;"
+        placeholder="课程口令"
+      />
+    </view>
+    <van-button
+      round
+      :disabled="pwd.length !== 6"
+      @click="handleJoinActivity"
+      :plain="pwd.length !== 6"
+      type="primary"
+      round
+      >确定</van-button
+    >
+    <!-- <text class="title"> 我加入的活动 </text>
     <view class="joinList">
       <view v-for="a in joinActivities" :key="a.activityId">
         <text @click="handleCheckInfo(a.activityId)">{{ a.name }}</text>
       </view>
-    </view>
+    </view> -->
   </view>
 </template>
 
@@ -32,6 +52,15 @@ export default {
       })
     },
     handleJoinActivity () {
+      if (this.pwd.length !== 6) {
+        uni.showToast({
+          icon: 'none',
+          mask: true,
+          duration: 1000,
+          title: '请输入6位口令'
+        })
+        return
+      }
       uni.showLoading({
         title: '查询活动信息中',
         mask: true
@@ -72,8 +101,6 @@ export default {
 }
 </script>
 
-<style>
-.title {
-  text-align: center;
-}
+<style lang="scss" scoped>
+@import "./join.scss";
 </style>
