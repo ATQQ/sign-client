@@ -1,25 +1,32 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-	{
-		"path": "src/pages/index/index",
-		"style": {
-			"navigationBarTitleText": "签到小程序-首页"
-		}
-	},
-	{
-		"path": "src/pages/activity/people/info/info",
-		"style": {
-			"navigationBarTitleText": "成员基本信息",
-			"enablePullDownRefresh": false
-		}
-	},
-	{
-		"path": "src/pages/activity/people/people",
-		"style": {
-			"navigationBarTitleText": "活动成员",
-			"enablePullDownRefresh": false
-		}
-	},
+		{
+			"path": "src/pages/index/index",
+			"style": {
+				"navigationBarTitleText": "签到小程序-首页"
+			}
+		},
+		{
+			"path": "src/pages/activity/signlist/signlist",
+			"style": {
+				"navigationBarTitleText": "所有签到表",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "src/pages/activity/people/info/info",
+			"style": {
+				"navigationBarTitleText": "成员基本信息",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "src/pages/activity/people/people",
+			"style": {
+				"navigationBarTitleText": "活动成员",
+				"enablePullDownRefresh": false
+			}
+		},
 		{
 			"path": "src/pages/activity/info/info",
 			"style": {
@@ -64,13 +71,6 @@
 			"path": "src/pages/activity/join/activity/activity",
 			"style": {
 				"navigationBarTitleText": "加入活动",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "src/pages/activity/signlist/signlist",
-			"style": {
-				"navigationBarTitleText": "所有签到表",
 				"enablePullDownRefresh": false
 			}
 		},

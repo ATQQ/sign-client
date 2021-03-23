@@ -1,32 +1,46 @@
 <template>
   <view>
-    <text>所有签到表</text>
-    <navigator :url="`create/create?id=${activityId}`">
-      <button type="default">新的签到</button>
+    <navigator :url="`create/create?id=${activityId}`" class="p20">
+      <van-button type="info" round size="large" plain>新的签到</van-button>
     </navigator>
-
-    <view
-      class="list"
-      v-for="(s, idx) in signList"
-      :key="s.signId"
-      @click="handleDetail(s.signId)"
-    >
-      <text>第{{ idx + 1 }}次签到</text>
-      <view class=""> 状态：{{ SignStatusText[s.status] }} </view>
-    </view>
+    <van-cell-group>
+      <view class="group-title">所有签到表</view>
+      <van-cell
+        is-link
+        :url="`detail/detail?id=${s.signId}`"
+        v-for="(s, idx) in signs"
+        :key="s.signId"
+      >
+        <view slot="title">
+          <view class="cell-title">
+            <view class="van-cell-text">{{
+              `第${signList.length - idx}次签到`
+            }}</view>
+            <van-tag :type="statusTag[s.status]">{{
+              SignStatusText[s.status]
+            }}</van-tag>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
   </view>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { SignStatusText } from '../../../constants/index.js'
+import { SignStatusText, SignStatus } from '../../../constants/index.js'
 
 export default {
   data () {
     return {
       activityId: '',
       SignStatusText: SignStatusText,
-      stop: false
+      stop: false,
+      statusTag: {
+        [SignStatus.ing]: 'success',
+        [SignStatus.over]: 'danger',
+        [SignStatus.pause]: 'primary'
+      }
     }
   },
   methods: {
@@ -45,9 +59,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('sign', ['signList'])
+    ...mapState('sign', ['signList']),
+    signs () {
+      return this.signList.slice(0).reverse()
+    }
   },
   onLoad (params) {
+    // params.id = '6056f8257be9880013360c4d'
     this.getSignListByActivityId(params.id)
     this.activityId = params.id
     this.refresh()
@@ -57,3 +75,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.cell-title {
+  display: flex;
+  align-items: center;
+  .van-cell-text {
+    margin-right: 20rpx;
+  }
+}
+</style>

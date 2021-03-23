@@ -42,7 +42,6 @@ export default {
     }
   },
   onLoad (params) {
-    console.log(params)
     this.id = params.id
     this.isAdmin = !!params.is_admin
   }
