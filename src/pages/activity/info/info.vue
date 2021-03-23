@@ -8,13 +8,13 @@
             {{ activity.description }}
           </view>
         </van-cell>
-        <van-cell title="活动口令" :value="activity.pwd" />
         <van-cell
           title="要求姓名格式"
           label="名称处内容填写参照此格式"
           :value="activity.nameFormat"
         />
         <van-cell title="预计人数" :value="activity.peopleCount" />
+        <van-cell title="活动口令" :value="activity.pwd" />
       </van-cell-group>
     </view>
     <view class="btn-container">
@@ -38,6 +38,9 @@
         >
           确定
         </van-button>
+        <view style="text-align: center; padding: 10rpx; font-size: 0.8rem">
+          至少修改一项
+        </view>
       </view>
     </view>
     <view v-show="rewrite">
@@ -58,13 +61,37 @@
           type="textarea"
           autosize
           label="简介"
-          :value="des"
+          :value="newDes"
           @change="
             (e) => {
               newDes = e.detail;
             }
           "
           placeholder="请输入新的简介"
+          required
+          input-align="right"
+        />
+        <van-field
+          label="姓名格式"
+          :value="newFormat"
+          @change="
+            (e) => {
+              newFormat = e.detail;
+            }
+          "
+          placeholder="请输入新的姓名格式"
+          required
+          input-align="right"
+        />
+        <van-field
+          label="预计人数"
+          :value="newCount"
+          @change="
+            (e) => {
+              newCount = e.detail;
+            }
+          "
+          placeholder="请输入预计人数"
           required
           input-align="right"
         />
@@ -82,7 +109,9 @@ export default {
       rewrite: false,
       isAdmin: false,
       newName: '',
-      newDes: ''
+      newDes: '',
+      newFormat: '',
+      newCount: ''
     }
   },
   onLoad (params) {
@@ -92,17 +121,27 @@ export default {
   computed: {
     ...mapGetters('activity', ['getActivityById']),
     isInputOk () {
-      return this.newName && this.newDes
+      return this.newName || this.newDes || this.newCount || this.newFormat
     }
   },
   methods: {
     ...mapActions('activity', ['updateActivityInfo']),
     handleRewrite () {
-      const { activityId, nameFormat, peopleCount } = this.activity
+      let {
+        activityId,
+        nameFormat,
+        peopleCount,
+        name,
+        description
+      } = this.activity
+      name = this.newName || name
+      description = this.newDes || description
+      nameFormat = this.newFormat || nameFormat
+      peopleCount = this.newCount || peopleCount
       this.updateActivityInfo({
         id: activityId,
-        name: this.newName,
-        description: this.newDes,
+        name,
+        description,
         nameFormat,
         peopleCount
       }).then(() => {
@@ -113,10 +152,12 @@ export default {
           duration: 1000
         })
         this.rewrite = !this.rewrite
-        this.activity.name = this.newName
-        this.activity.description = this.newDes
-        this.newName = ''
-        this.newDes = ''
+        Object.assign(this.activity, {
+          name,
+          description,
+          nameFormat,
+          peopleCount
+        })
       })
     }
   }

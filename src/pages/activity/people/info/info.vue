@@ -1,18 +1,41 @@
 <template>
-  <view>
-    <view v-show="peopleInfo.peopleId">
-      <view class="">
-        <input v-if="rewrite" type="text" v-model="peopleInfo.name" />
-        <text v-else>{{ peopleInfo.name }}</text>
-      </view>
-      <view class="">
-        <text>{{ peopleInfo.joinTime }}</text>
+  <view v-if="peopleInfo.peopleId">
+    <view class="group-title">成员基本信息</view>
+    <van-cell-group>
+      <van-field
+        v-if="rewrite"
+        clearable
+        label="成员名称"
+        :value="name"
+        @change="
+          (e) => {
+            name = e.detail;
+          }
+        "
+        placeholder="请输入新的名字"
+        required
+        input-align="right"
+      />
+      <van-cell v-else title="成员名称" :value="peopleInfo.name" />
+      <van-cell
+        title="加入时间"
+        :value="new Date(peopleInfo.joinTime).Format('yyyy-MM-dd hh:mm:ss')"
+      />
+    </van-cell-group>
+    <view class="sure-container">
+      <van-button v-if="!rewrite" @click="rewrite = !rewrite" type="info" block
+        >修改成员名称</van-button
+      >
+      <view v-else>
+        <van-button block type="danger" @click="rewrite = !rewrite">
+          取消
+        </van-button>
+        <view style="margin-bottom: 20rpx; display: block"></view>
+        <van-button :disabled="!name" block type="primary" @click="handleSure">
+          确定
+        </van-button>
       </view>
     </view>
-    <button v-if="rewrite" type="default" @click="handleSure">确认修改</button>
-    <button v-else type="default" @click="rewrite = !rewrite">
-      修改成员名称
-    </button>
   </view>
 </template>
 
@@ -22,7 +45,8 @@ export default {
   data () {
     return {
       peopleInfo: {},
-      rewrite: false
+      rewrite: false,
+      name: ''
     }
   },
   onLoad (params) {
@@ -31,19 +55,28 @@ export default {
   methods: {
     ...mapActions('people', ['rewritePeopleName']),
     handleSure () {
-      const { peopleId, name, activityId } = this.peopleInfo
-      this.rewritePeopleName({ peopleId, name, activityId }).then(() => {
+      const { peopleId, activityId } = this.peopleInfo
+      this.rewritePeopleName({
+        peopleId,
+        name: this.name,
+        activityId
+      }).then(() => {
         uni.showToast({
           title: '修改完成',
           duration: 1000,
           mask: true
         })
         this.rewrite = !this.rewrite
+        this.peopleInfo.name = this.name
+        this.name = ''
       })
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.sure-container {
+  padding: 20rpx;
+}
 </style>

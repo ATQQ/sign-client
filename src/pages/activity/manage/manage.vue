@@ -8,7 +8,7 @@
       contentPosition="center"
       customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
     >
-      我加入的活动
+      我创建的活动
     </van-divider>
     <van-empty
       v-if="manageActivities.length === 0"
