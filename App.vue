@@ -15,4 +15,5 @@ export default {
 <style>
 /*每个页面公共css */
 @import "/wxcomponents/@vant/weapp/dist/common/index.wxss";
+@import "./public.scss";
 </style>
