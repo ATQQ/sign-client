@@ -1,9 +1,23 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	{
+		"path": "src/pages/index/index",
+		"style": {
+			"navigationBarTitleText": "签到小程序-首页"
+		}
+	},
 		{
-			"path": "src/pages/index/index",
+			"path": "src/pages/activity/nav/nav",
 			"style": {
-				"navigationBarTitleText": "签到小程序-首页"
+				"navigationBarTitleText": "活动导航",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "src/pages/activity/manage/manage",
+			"style": {
+				"navigationBarTitleText": "我创建的活动",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -23,20 +37,6 @@
 			"path": "src/pages/activity/info/info",
 			"style": {
 				"navigationBarTitleText": "活动详情页",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "src/pages/activity/nav/nav",
-			"style": {
-				"navigationBarTitleText": "活动导航",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "src/pages/activity/manage/manage",
-			"style": {
-				"navigationBarTitleText": "我管理的活动",
 				"enablePullDownRefresh": false
 			}
 		},

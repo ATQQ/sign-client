@@ -65,7 +65,6 @@
         >确认创建</van-button
       >
     </view>
-    <!-- <button type="default" @click="handleCreate">确认创建</button> -->
   </view>
 </template>
 
