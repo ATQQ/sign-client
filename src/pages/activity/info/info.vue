@@ -1,36 +1,75 @@
 <template>
   <view>
-    <view class="" v-show="!!activity.activityId">
-      <view class="item">
-        <input type="text" v-model="activity.name" v-if="rewrite" />
-        <text v-else>{{ activity.name }}</text>
-      </view>
-      <view class="item">
-        <input type="text" v-model="activity.description" v-if="rewrite" />
-        <text v-else>{{ activity.description }}</text>
-      </view>
-      <view class="item">
-        <input type="text" v-model="activity.nameFormat" v-if="rewrite" />
-        <text v-else>{{ activity.nameFormat }}</text>
-      </view>
-      <view class="item">
-        <input type="number" v-model="activity.peopleCount" v-if="rewrite" />
-        <text v-else>{{ activity.peopleCount }}</text>
-      </view>
-      <view class="item">
-        <text>{{ activity.pwd }}</text>
+    <view v-show="!!activity.activityId">
+      <van-cell-group>
+        <van-cell title="活动名称" :value="activity.name" />
+        <van-cell title="活动简介">
+          <view class="break-all">
+            {{ activity.description }}
+          </view>
+        </van-cell>
+        <van-cell title="活动口令" :value="activity.pwd" />
+        <van-cell
+          title="要求姓名格式"
+          label="名称处内容填写参照此格式"
+          :value="activity.nameFormat"
+        />
+        <van-cell title="预计人数" :value="activity.peopleCount" />
+      </van-cell-group>
+    </view>
+    <view class="btn-container">
+      <van-button
+        type="info"
+        block
+        @click="rewrite = !rewrite"
+        v-show="!rewrite && isAdmin"
+        >修改基本信息</van-button
+      >
+      <view v-show="rewrite && isAdmin">
+        <van-button block type="danger" @click="rewrite = !rewrite">
+          取消
+        </van-button>
+        <view style="margin-bottom: 20rpx; display: block"></view>
+        <van-button
+          :disabled="!isInputOk"
+          block
+          type="primary"
+          @click="handleRewrite"
+        >
+          确定
+        </van-button>
       </view>
     </view>
-    <button
-      type="default"
-      @click="rewrite = !rewrite"
-      v-show="!rewrite && isAdmin"
-    >
-      修改基本信息
-    </button>
-    <button type="default" @click="handleRewrite" v-show="rewrite && isAdmin">
-      完成修改
-    </button>
+    <view v-show="rewrite">
+      <van-cell-group>
+        <van-field
+          label="活动名称"
+          :value="newName"
+          @change="
+            (e) => {
+              newName = e.detail;
+            }
+          "
+          placeholder="请输入新的活动名称"
+          required
+          input-align="right"
+        />
+        <van-field
+          type="textarea"
+          autosize
+          label="简介"
+          :value="des"
+          @change="
+            (e) => {
+              newDes = e.detail;
+            }
+          "
+          placeholder="请输入新的简介"
+          required
+          input-align="right"
+        />
+      </van-cell-group>
+    </view>
   </view>
 </template>
 
@@ -41,7 +80,9 @@ export default {
     return {
       activity: {},
       rewrite: false,
-      isAdmin: false
+      isAdmin: false,
+      newName: '',
+      newDes: ''
     }
   },
   onLoad (params) {
@@ -49,22 +90,19 @@ export default {
     this.isAdmin = !!params.is_admin
   },
   computed: {
-    ...mapGetters('activity', ['getActivityById'])
+    ...mapGetters('activity', ['getActivityById']),
+    isInputOk () {
+      return this.newName && this.newDes
+    }
   },
   methods: {
     ...mapActions('activity', ['updateActivityInfo']),
     handleRewrite () {
-      const {
-        activityId,
-        name,
-        description,
-        nameFormat,
-        peopleCount
-      } = this.activity
+      const { activityId, nameFormat, peopleCount } = this.activity
       this.updateActivityInfo({
         id: activityId,
-        name,
-        description,
+        name: this.newName,
+        description: this.newDes,
         nameFormat,
         peopleCount
       }).then(() => {
@@ -75,6 +113,10 @@ export default {
           duration: 1000
         })
         this.rewrite = !this.rewrite
+        this.activity.name = this.newName
+        this.activity.description = this.newDes
+        this.newName = ''
+        this.newDes = ''
       })
     }
   }
@@ -85,5 +127,9 @@ export default {
 .item {
   text-align: center;
   margin: 10rpx;
+}
+
+.btn-container {
+  padding: 20rpx;
 }
 </style>
