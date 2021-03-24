@@ -1,0 +1,29 @@
+.pwd{
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+	font-size: 1.2rem;
+}
+.status{
+	display: flex;
+	justify-content: space-around;
+}
+.qrcode{
+	display: flex;
+	justify-content: center;
+}
+.time{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.cell-title {
+  display: flex;
+  align-items: center;
+  .van-cell-text {
+    margin-right: 20rpx;
+  }
+  .rank{
+	  margin-left: 20rpx;
+  }
+}

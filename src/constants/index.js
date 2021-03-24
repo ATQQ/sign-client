@@ -45,6 +45,13 @@ export const RecordStatus = {
   notArrived: 3
 }
 
+export const RecordStatusTagType = {
+	[RecordStatus.not]: 'danger',
+	[RecordStatus.success]: 'success',
+	[RecordStatus.fail]: 'warning',
+	[RecordStatus.late]: 'primary',
+	[RecordStatus.notArrived]: 'danger'
+}
 export const RecordStatusText = {
   [RecordStatus.not]: '未签到',
   [RecordStatus.success]: '签到成功',

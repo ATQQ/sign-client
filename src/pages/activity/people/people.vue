@@ -50,8 +50,7 @@ export default {
     }
   },
   onLoad (params) {
-    // this.getActivityPeopleById(params.id)
-    this.getActivityPeopleById('6056f8257be9880013360c4d')
+    this.getActivityPeopleById(params.id)
   }
 }
 </script>
