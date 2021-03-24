@@ -1,11 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "src/pages/index/index",
-			"style": {
-				"navigationBarTitleText": "签到小程序-首页"
-			}
-		},
+	{
+		"path": "src/pages/index/index",
+		"style": {
+			"navigationBarTitleText": "签到小程序-首页"
+		}
+	},
+	{
+		"path": "src/pages/activity/signlist/create/create",
+		"style": {
+			"navigationBarTitleText": "新的签到",
+			"enablePullDownRefresh": false
+		}
+	},
 		{
 			"path": "src/pages/activity/signlist/signlist",
 			"style": {
@@ -71,13 +78,6 @@
 			"path": "src/pages/activity/join/activity/activity",
 			"style": {
 				"navigationBarTitleText": "加入活动",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "src/pages/activity/signlist/create/create",
-			"style": {
-				"navigationBarTitleText": "开始新的签到",
 				"enablePullDownRefresh": false
 			}
 		},
