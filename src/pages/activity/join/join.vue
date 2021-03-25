@@ -66,17 +66,16 @@ export default {
         .getActivityByPwd(this.pwd)
         .then((res) => {
           uni.hideLoading()
-          const { code, data } = res
-          if (code === 10002) {
-            Toast.fail('口令有误活动不存在')
-            return
-          }
           // 跳转加入活动页面
           uni.navigateTo({
             url: `activity/activity?activity=${JSON.stringify(data)}`
           })
         })
-        .catch(() => {
+        .catch((res) => {
+          const { code } = res
+          if (code === 10002) {
+            Toast.fail('口令有误活动不存在')
+          }
           uni.hideLoading()
         })
     }

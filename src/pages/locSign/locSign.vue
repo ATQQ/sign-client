@@ -111,7 +111,28 @@ export default {
                 })
               }
             })
+            return
           }
+          let errMsg = ''
+          switch (code) {
+            case StatusCode.record.signOver:
+              errMsg = '签到已结束'
+              break
+            case StatusCode.record
+              .alreadySign:
+              errMsg = '已经签过到了'
+              break
+            case StatusCode.record.fail:
+              errMsg = '签到失败'
+              break
+            case StatusCode.record
+              .invalidPWD:
+              errMsg = '无效口令'
+              break
+            default:
+              errMsg = '签到失败'
+          }
+          Toast.fail(errMsg)
         })
     }
   }
