@@ -97,11 +97,13 @@
         />
       </van-cell-group>
     </view>
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -145,12 +147,7 @@ export default {
         nameFormat,
         peopleCount
       }).then(() => {
-        uni.showToast({
-          icon: 'success',
-          title: '修改成功',
-          mask: true,
-          duration: 1000
-        })
+        Toast.success('修改成功')
         this.rewrite = !this.rewrite
         Object.assign(this.activity, {
           name,

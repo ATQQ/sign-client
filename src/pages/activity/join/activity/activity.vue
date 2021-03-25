@@ -66,11 +66,13 @@
         >确认加入</van-button
       >
     </view>
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -97,11 +99,7 @@ export default {
     ...mapActions('activity', ['getJoinActivities']),
     handleJoin () {
       if (this.name1 !== this.name2) {
-        uni.showToast({
-          duration: 1000,
-          icon: 'none',
-          title: '两次输入的姓名不一致'
-        })
+        Toast.fail('两次输入的姓名不一致')
         return
       }
       this.$api.people
@@ -109,26 +107,15 @@ export default {
         .then((res) => {
           const { code } = res
           if (code === 10001) {
-            uni.showToast({
-              duration: 1000,
-              icon: 'none',
-              title: '已经在活动中了'
-            })
+            Toast.fail('已经在活动中了')
             return
           }
           if (code === 10001) {
-            uni.showToast({
-              duration: 1000,
-              icon: 'none',
-              title: '活动不存在'
-            })
+            Toast.fail('活动不存在')
             return
           }
-          uni.showToast({
-            duration: 1000,
-            icon: 'success',
-            title: '加入成功'
-          })
+          Toast.success('加入成功')
+
           this.getJoinActivities()
           setTimeout(() => {
             uni.navigateBack()

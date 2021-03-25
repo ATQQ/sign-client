@@ -3,8 +3,7 @@ import { StatusCode } from '../constants'
 
 const http = axios
 http.defaults.baseURL =
-  'https://service-agthqjcf-1256505457.cd.apigw.tencentcs.com/release' ||
-  'http://localhost:3000'
+  'https://service-agthqjcf-1256505457.cd.apigw.tencentcs.com/release'
 http.defaults.headers = {
   'content-Type': 'application/json'
 }

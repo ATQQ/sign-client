@@ -113,6 +113,7 @@
         </van-row>
       </view>
     </view> -->
+    <van-toast id="van-toast" />
   </view>
 </template>
 <script>
@@ -120,6 +121,7 @@ import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 import { mapState, mapActions } from 'vuex'
 import { Gender, SignMethod, StatusCode } from '../../constants/index'
 import { funsConfig, infoConfig } from './config'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -149,10 +151,7 @@ export default {
           })
           if (res.scanType !== 'QR_CODE') {
             uni.hideLoading()
-            uni.showToast({
-              duration: 1000,
-              title: '不是二维码'
-            })
+            Toast.fail('不是二维码')
             return
           }
           try {
@@ -164,30 +163,26 @@ export default {
                   .startRecord(SignMethod.qrCode, { qrcode })
                   .then(() => {
                     uni.hideLoading()
-                    uni.showToast({
-                      title: '签到成功'
-                    })
+                    Toast.success('签到成功')
                   })
                   .catch((err) => {
                     const { code, data } = err
                     if (code === StatusCode.record.notJoin) {
-                      uni.showToast({
-                        title: '准备跳转加入'
+                      Toast.success({
+                        message: '准备跳转加入',
+                        onClose: () => {
+                          uni.navigateTo({
+                            url: `../activity/join/join?pwd=${data.pwd}`
+                          })
+                        }
                       })
-                      setTimeout(() => {
-                        uni.navigateTo({
-                          url: `../activity/join/join?pwd=${data.pwd}`
-                        })
-                      }, 1100)
                     }
                   })
                 break
             }
           } catch (e) {
             uni.hideLoading()
-            uni.showToast({
-              title: '不支持的二维码'
-            })
+            Toast.fail('不支持的二维码')
           }
         }
       })
@@ -239,16 +234,10 @@ export default {
               // 换取token
               // 存入vuex
               this.setToken(token)
-              uni.showToast({
-                title: '登陆成功',
-                duration: 1000
-              })
+              Toast.success('登录成功')
               this.showLogin = false
             } catch (error) {
-              uni.showToast({
-                title: `登陆失败\n${JSON.stringify(error)}`,
-                duration: 1000
-              })
+              Toast.success(`登陆失败\n${JSON.stringify(error)}`)
               this.showLogin = true
             } finally {
               uni.hideLoading()
@@ -259,6 +248,9 @@ export default {
           uni.hideLoading()
           this.showLogin = true
         })
+      setTimeout(() => {
+        uni.hideLoading()
+      }, 5000)
     }
   },
   mounted () {
@@ -268,5 +260,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import './index.scss';
+@import "./index.scss";
 </style>

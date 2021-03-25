@@ -65,11 +65,13 @@
         >确认创建</van-button
       >
     </view>
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -100,10 +102,9 @@ export default {
         .createActivity(name, description, format, count)
         .then((res) => {
           if (res.code === 0) {
-            uni.showToast({
-              title: '创建成功',
-              duration: 1000,
-              success: () => {
+            Toast.success({
+              message: '创建成功',
+              onClose: () => {
                 this.getManageActivities()
                 uni.navigateBack()
               }

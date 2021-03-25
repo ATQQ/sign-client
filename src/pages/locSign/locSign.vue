@@ -41,11 +41,13 @@
       type="primary"
       >签到</van-button
     >
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { SignMethod, StatusCode } from '../../constants/index'
 import { myLocation } from '../activity/signlist/create/location'
 export default {
@@ -68,16 +70,11 @@ export default {
             console.log(e)
             this.markers[0].latitude = e.latitude
             this.markers[0].longitude = e.longitude
-			uni.showToast({
-				icon:'none',
-				title:'成功获取位置信息'
-			})
+            Toast.success('成功获取位置信息')
             res(e)
           },
           fail: (err) => {
-            uni.showToast({
-              title: '请手动点击获取当前位置'
-            })
+            Toast.fail('请手动点击获取当前位置')
             rej(err)
           }
         })
@@ -85,12 +82,7 @@ export default {
     },
     handleSign () {
       if (this.pwd.length !== 6) {
-        uni.showToast({
-          icon: 'none',
-          mask: true,
-          duration: 1000,
-          title: '请输入6位口令'
-        })
+        Toast.fail('请输入6位口令')
         return
       }
       uni.showLoading({
@@ -105,22 +97,20 @@ export default {
         .startRecord(SignMethod.gps, { pwd: this.pwd, location })
         .then(() => {
           uni.hideLoading()
-          uni.showToast({
-            title: '签到成功'
-          })
+          Toast.success('签到成功')
         })
         .catch((err) => {
           const { code, data } = err
           uni.hideLoading()
           if (code === StatusCode.record.notJoin) {
-            uni.showToast({
-              title: '准备跳转加入'
+            Toast.success({
+              message: '准备加入活动',
+              onClose: () => {
+                uni.navigateTo({
+                  url: `../activity/join/join?pwd=${data.pwd}`
+                })
+              }
             })
-            setTimeout(() => {
-              uni.navigateTo({
-                url: `../activity/join/join?pwd=${data.pwd}`
-              })
-            }, 1100)
           }
         })
     }

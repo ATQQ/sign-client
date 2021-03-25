@@ -36,11 +36,13 @@
         </van-button>
       </view>
     </view>
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -61,11 +63,7 @@ export default {
         name: this.name,
         activityId
       }).then(() => {
-        uni.showToast({
-          title: '修改完成',
-          duration: 1000,
-          mask: true
-        })
+        Toast.success('修改完成')
         this.rewrite = !this.rewrite
         this.peopleInfo.name = this.name
         this.name = ''

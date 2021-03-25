@@ -21,7 +21,6 @@
       @click="handleJoinActivity"
       :plain="pwd.length !== 6"
       type="primary"
-      round
       >确定</van-button
     >
     <!-- <text class="title"> 我加入的活动 </text>
@@ -30,11 +29,13 @@
         <text @click="handleCheckInfo(a.activityId)">{{ a.name }}</text>
       </view>
     </view> -->
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -53,12 +54,7 @@ export default {
     },
     handleJoinActivity () {
       if (this.pwd.length !== 6) {
-        uni.showToast({
-          icon: 'none',
-          mask: true,
-          duration: 1000,
-          title: '请输入6位口令'
-        })
+        Toast.fail('请输入6位口令')
         return
       }
       uni.showLoading({
@@ -72,12 +68,7 @@ export default {
           uni.hideLoading()
           const { code, data } = res
           if (code === 10002) {
-            uni.showToast({
-              icon: 'none',
-              mask: true,
-              duration: 1000,
-              title: '口令有误活动不存在'
-            })
+            Toast.fail('口令有误活动不存在')
             return
           }
           // 跳转加入活动页面

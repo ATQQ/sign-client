@@ -73,12 +73,14 @@
         >确认创建</van-button
       >
     </view>
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { myLocation, location } from './location'
 import getDistance from '../../../../utils/getDistance'
+import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -135,9 +137,7 @@ export default {
           this.markers[1].longitude = e.longitude
         },
         fail: () => {
-          uni.showToast({
-            title: '请手动点击获取当前位置'
-          })
+          Toast.fail('请手动点击获取当前位置')
         }
       })
     },
@@ -149,10 +149,7 @@ export default {
     },
     handleCreate () {
       if (this.methods.length === 0) {
-        uni.showToast({
-          duration: 1000,
-          title: '请至少选择一个签到方式'
-        })
+        Toast.fail('请至少选择一个签到方式')
         return
       }
       this.locationInfo = {
@@ -167,14 +164,12 @@ export default {
           this.locationInfo
         )
         .then((res) => {
-          uni.showToast({
-            duration: 1000,
-            icon: 'success',
-            title: '创建成功'
+          Toast.success({
+            message: '创建成功',
+            onClose: () => {
+              uni.navigateBack()
+            }
           })
-          setTimeout(() => {
-            uni.navigateBack()
-          }, 800)
         })
     }
   }
