@@ -16,6 +16,9 @@
         <text class="nickname">{{ nickname }}</text>
         <!-- TODO:性别用颜色加以区分 -->
         <text class="sex">{{ sex }}</text>
+        <view class="re-login" @click="handleGetUserInfo">
+          <van-icon name="replay" />
+        </view>
       </view>
     </view>
     <!-- 签到区域 -->
@@ -40,7 +43,7 @@
             </view>
           </van-col>
           <van-col span="12">
-            <view class="fun-item">
+            <navigator class="fun-item" url="../locSign/locSign">
               <view class="icon-bg-blue icon-container">
                 <van-icon
                   color="#1989fa"
@@ -49,7 +52,7 @@
                 ></van-icon>
               </view>
               <text class="text">定位签到</text>
-            </view>
+            </navigator>
           </van-col>
         </van-row>
       </view>
@@ -83,7 +86,7 @@
       </view>
     </view>
     <!-- 暂定 -->
-    <view class="card">
+    <!-- <view class="card">
       <view class="plr20 fun-title">
         <van-divider
           hairline
@@ -109,7 +112,7 @@
           </van-col>
         </van-row>
       </view>
-    </view>
+    </view> -->
   </view>
 </template>
 <script>
@@ -205,6 +208,10 @@ export default {
       //   console.log(e);
       //  }
       // })
+      uni.showLoading({
+        title: '登陆中',
+        mask: true
+      })
       getUserInfo()
         .then(([err, res]) => {
           if (!res) {
@@ -212,10 +219,6 @@ export default {
             return
           }
           const { nickName, gender, avatarUrl } = res?.userInfo
-          uni.showLoading({
-            title: '登陆中',
-            mask: true
-          })
 
           // 存入vuex
           this.setUserInfo({

@@ -5,6 +5,7 @@
   justify-content: center;
   background-color: $c-primary;
   padding: 20rpx 30rpx;
+  height: 100vh;
 }
 .plr20 {
   padding: 0 20rpx;
@@ -20,6 +21,7 @@
 .avatar-container {
   display: flex;
   align-items: center;
+  position: relative;
   .avatar {
     border-radius: 50%;
     width: 130rpx;
@@ -43,6 +45,15 @@
     margin-left: 40rpx;
     .sex {
       margin-left: 10rpx;
+    }
+    .re-login {
+      position: absolute;
+      right: 20rpx;
+      top: 0;
+      bottom: 0;
+      align-items: center;
+      justify-content: center;
+      display: flex;
     }
   }
 }

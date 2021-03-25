@@ -95,7 +95,16 @@
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "src/pages/locSign/locSign",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "定位签到",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

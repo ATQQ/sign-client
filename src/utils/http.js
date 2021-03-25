@@ -25,7 +25,7 @@ http.interceptors.request.use(
     return Promise.reject(err)
   }
 )
-
+let goHome = false
 http.interceptors.response.use(
   (response) => {
     const { code } = response.data
@@ -34,6 +34,16 @@ http.interceptors.response.use(
       switch (code) {
         case StatusCode.nowPower:
           errMsg = '没有权限'
+          if (!goHome) {
+            goHome = true
+            setTimeout(() => {
+              goHome = false
+              uni.redirectTo({
+                url: '/src/pages/index/index'
+              })
+            }, 1000)
+          }
+
           break
         case StatusCode.people.exist:
           errMsg = '已经在活动中了'
