@@ -27,10 +27,14 @@ function getJoinActivities () {
 function getActivityByPwd (pwd) {
   return http.get(`/activity/info/${pwd}`)
 }
+function getActivitySignDetail(id){
+	return http.get(`/activity/sign/${id}`)
+}
 export default {
   getManageActivities,
   createActivity,
   updateActivityInfo,
   getJoinActivities,
-  getActivityByPwd
+  getActivityByPwd,
+  getActivitySignDetail
 }

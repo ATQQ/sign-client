@@ -18,6 +18,13 @@ export const SignMethod = {
   camera: 3,
   teacher: 4
 }
+
+export const SignMethodText = {
+  [SignMethod.qrCode]: '二维码',
+  [SignMethod.gps]: '定位',
+  [SignMethod.teacher]: '教师修改'
+}
+
 export const StatusCode = {
   people: {
     exist: 10001,
@@ -46,11 +53,11 @@ export const RecordStatus = {
 }
 
 export const RecordStatusTagType = {
-	[RecordStatus.not]: 'danger',
-	[RecordStatus.success]: 'success',
-	[RecordStatus.fail]: 'warning',
-	[RecordStatus.late]: 'primary',
-	[RecordStatus.notArrived]: 'danger'
+  [RecordStatus.not]: 'danger',
+  [RecordStatus.success]: 'success',
+  [RecordStatus.fail]: 'warning',
+  [RecordStatus.late]: 'primary',
+  [RecordStatus.notArrived]: 'danger'
 }
 export const RecordStatusText = {
   [RecordStatus.not]: '未签到',

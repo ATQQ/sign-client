@@ -117,11 +117,15 @@ export default {
     }
   },
   onLoad (params) {
-    this.activity = this.getActivityById(params.id)
     this.isAdmin = !!params.is_admin
+    if (this.isAdmin) {
+      this.activity = this.getActivityById(params.id)
+      return
+    }
+    this.activity = this.getJoinActivityById(params.id)
   },
   computed: {
-    ...mapGetters('activity', ['getActivityById']),
+    ...mapGetters('activity', ['getActivityById', 'getJoinActivityById']),
     isInputOk () {
       return this.newName || this.newDes || this.newCount || this.newFormat
     }

@@ -86,19 +86,19 @@
       </view>
     </view>
     <!-- 暂定 -->
-    <!-- <view class="card">
+    <view class="card">
       <view class="plr20 fun-title">
         <van-divider
           hairline
           contentPosition="center"
           customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
         >
-          暂定
+          其它
         </van-divider>
       </view>
       <view class="plr20 funs">
         <van-row gutter="20">
-          <van-col span="8" v-for="(fun, idx) in infoConfig" :key="idx">
+          <van-col span="24" v-for="(fun, idx) in infoConfig" :key="idx">
             <navigator class="fun-item" :url="fun.url">
               <view class="icon-container" :class="[`icon-${fun.bg}`]">
                 <van-icon
@@ -112,7 +112,7 @@
           </van-col>
         </van-row>
       </view>
-    </view> -->
+    </view>
     <van-toast id="van-toast" />
   </view>
 </template>

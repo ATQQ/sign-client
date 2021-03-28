@@ -104,6 +104,24 @@
             }
             
         }
+        ,{
+            "path" : "src/pages/activity/participate/participate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我参与的活动",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "src/pages/activity/signDetail/signDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "签到概况",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

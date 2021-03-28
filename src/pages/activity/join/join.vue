@@ -23,18 +23,12 @@
       type="primary"
       >确定</van-button
     >
-    <!-- <text class="title"> 我加入的活动 </text>
-    <view class="joinList">
-      <view v-for="a in joinActivities" :key="a.activityId">
-        <text @click="handleCheckInfo(a.activityId)">{{ a.name }}</text>
-      </view>
-    </view> -->
     <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
@@ -42,16 +36,7 @@ export default {
       pwd: ''
     }
   },
-  mounted () {
-    this.getJoinActivities()
-  },
   methods: {
-    ...mapActions('activity', ['getJoinActivities']),
-    handleCheckInfo (id) {
-      uni.navigateTo({
-        url: `../nav/nav?id=${id}`
-      })
-    },
     handleJoinActivity () {
       if (this.pwd.length !== 6) {
         Toast.fail('请输入6位口令')

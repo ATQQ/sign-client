@@ -22,7 +22,7 @@
         />
       </view>
       <view v-show="SignStatus.ing === signDetail.status">
-        <view class="qrcode p20">
+        <view class="qrcode p20" v-if="signDetail.method.includes(1)">
           <tki-qrcode
             :size="400"
             ref="qrcode"
@@ -34,7 +34,6 @@
             :showLoading="false"
           />
         </view>
-        <!-- TODO:口令待确定 -->
         <view v-if="signDetail.method.includes(2)">
           <van-divider
             contentPosition="center"

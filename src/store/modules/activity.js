@@ -27,6 +27,12 @@ const getters = {
       (activity) =>
         activity.activityId === id
     )
+  },
+  getJoinActivityById: (state) => (id) => {
+    return state.joinActivities.find(
+      (activity) =>
+        activity.activityId === id
+    )
   }
 }
 const actions = {

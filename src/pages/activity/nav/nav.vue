@@ -10,6 +10,16 @@
         size="large"
       />
     </van-cell-group>
+    <van-cell-group class="b20" v-show="!isAdmin">
+      <van-cell
+        icon="comment-o"
+        link-type="navigateTo"
+        :url="`../signDetail/signDetail?id=${id}`"
+        title="签到概况"
+        is-link
+        size="large"
+      />
+    </van-cell-group>
     <van-cell-group class="b20" v-show="isAdmin">
       <van-cell
         icon="manager-o"

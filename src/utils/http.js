@@ -37,7 +37,7 @@ http.interceptors.response.use(
             goHome = true
             setTimeout(() => {
               goHome = false
-              uni.redirectTo({
+              uni.reLaunch({
                 url: '/src/pages/index/index'
               })
             }, 1000)
