@@ -53,7 +53,7 @@ export default {
           uni.hideLoading()
           // 跳转加入活动页面
           uni.navigateTo({
-            url: `activity/activity?activity=${JSON.stringify(data)}`
+            url: `activity/activity?activity=${JSON.stringify(res.data)}`
           })
         })
         .catch((res) => {
