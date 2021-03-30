@@ -130,6 +130,17 @@ export default {
       infoConfig
     }
   },
+  onShareAppMessage () {
+    return {
+      title: '活动考勤助手',
+      path: '/src/pages/index/index'
+    }
+  },
+  onShareTimeline () {
+    return {
+      title: '活动考勤助手'
+    }
+  },
   computed: {
     ...mapState('user', ['avatar', 'nickname', 'gender']),
     sex () {
