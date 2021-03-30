@@ -4,15 +4,14 @@
       <van-divider
         contentPosition="center"
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >加入活动口令</van-divider
       >
-        加入活动口令
-      </van-divider>
       <view class="pwd p20">{{ activityPwd }}</view>
       <!-- 状态 -->
       <view class="status p20">
-        <van-tag :type="statusTag[signDetail.status]">
-          {{ SignStatusText[signDetail.status] }}
-        </van-tag>
+        <van-tag :type="statusTag[signDetail.status]">{{
+          SignStatusText[signDetail.status]
+        }}</van-tag>
         <!-- 倒计时 -->
         <van-count-down
           format="mm 分 ss 秒 SSS毫秒"
@@ -38,9 +37,8 @@
           <van-divider
             contentPosition="center"
             customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+            >定位签到口令</van-divider
           >
-            定位签到口令
-          </van-divider>
           <view class="pwd p20">{{ signDetail.pwd }}</view>
         </view>
       </view>
@@ -52,43 +50,61 @@
         type="primary"
         v-show="SignStatus.over === signDetail.status"
         @click="handleStart"
+        >开始</van-button
       >
-        开始
-      </van-button>
+      <view class="p20" v-show="SignStatus.over === signDetail.status">
+        <van-button block round type="info" @click="handleRandom"
+          >随机抽人</van-button
+        >
+      </view>
+
+      <view v-if="SignStatus.over === signDetail.status && randomPeople">
+        <van-divider
+          contentPosition="center"
+          customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+          >抽中人员信息</van-divider
+        >
+        <view class="time" v-if="randomPeople.name">
+          <van-button
+            size="small"
+            type="info"
+            @click="handleCheckInfo(randomPeople)"
+            round
+            >添加批注&修改状态</van-button
+          >
+          <text>{{ randomPeople.name }}</text>
+        </view>
+      </view>
       <van-button
         block
         round
         type="danger"
         v-show="SignStatus.ing === signDetail.status"
         @click="handleOver"
+        >立即结束</van-button
       >
-        立即结束
-      </van-button>
       <van-button
         block
         round
         type="info"
         v-show="SignStatus.ing === signDetail.status"
         @click="handlePause"
+        >暂停</van-button
       >
-        暂停
-      </van-button>
       <van-button
         block
         round
         type="info"
         v-show="SignStatus.pause === signDetail.status"
         @click="handleStart"
+        >继续</van-button
       >
-        继续
-      </van-button>
       <view v-show="SignStatus.ing !== signDetail.status">
         <van-divider
           contentPosition="center"
           customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+          >需要延长的时间</van-divider
         >
-          需要延长的时间
-        </van-divider>
         <picker
           mode="selector"
           :range="timeRange"
@@ -96,7 +112,7 @@
         >
           <view class="time">
             <van-button size="small" type="info" round>轻触修改</van-button>
-            <text>{{ time }} mins </text>
+            <text>{{ time }} mins</text>
           </view>
         </picker>
       </view>
@@ -105,9 +121,8 @@
       <van-divider
         contentPosition="center"
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >签到概况</van-divider
       >
-        签到概况
-      </van-divider>
       <view class="p20">
         <van-progress :percentage="successPer" color="#07c160" />
       </view>
@@ -119,9 +134,11 @@
         <van-tab title="迟到" name="late"></van-tab>
         <van-tab title="旷课" name="notArrived"></van-tab>
       </van-tabs>
-      <view class="group-title">
-        活动总人数:{{ activityPeople.length }},当前状态人数:{{ records.length }}
-      </view>
+      <view class="group-title"
+        >活动总人数:{{ activityPeople.length }},当前状态人数:{{
+          records.length
+        }}</view
+      >
       <view>
         <van-empty
           v-if="records.length === 0"
@@ -138,9 +155,9 @@
             <view slot="title">
               <view class="cell-title">
                 <view class="van-cell-text">{{ d.name }}</view>
-                <van-tag :type="RecordStatusTagType[d.status]">{{
-                  RecordStatusText[d.status]
-                }}</van-tag>
+                <van-tag :type="RecordStatusTagType[d.status]">
+                  {{ RecordStatusText[d.status] }}
+                </van-tag>
                 <text
                   class="rank"
                   v-show="
@@ -192,7 +209,8 @@ export default {
       timeRange: Array.from({
         length: 61
       }).map((_, i) => i),
-      remainTime: 0
+      remainTime: 0,
+      randomPeople: ''
     }
   },
   components: {
@@ -211,7 +229,8 @@ export default {
       this.$api.sign
         .updateSignStatus(this.signId, status, this.time)
         .then(() => {
-          this.time = 0; Toast.success('状态切换成功')
+          this.time = 0
+          Toast.success('状态切换成功')
         })
     },
     handleCheckInfo (data) {
@@ -244,6 +263,32 @@ export default {
     },
     handlePause () {
       this.changeStatus(SignStatus.pause)
+    },
+    handleRandom () {
+      if (this.sucessRecords.length === 0) {
+        Toast.fail('没有成功签到的人员')
+        return
+      }
+      Toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true,
+        message: '结果抽取中'
+      })
+      let time = 20
+      const fn = () => {
+        if (time === 0) {
+          Toast.clear()
+          return
+        }
+        time--
+        setTimeout(() => {
+          const idc =
+            Math.round(Math.random() * 1000) % this.sucessRecords.length
+          this.randomPeople = this.sucessRecords[idc]
+          fn()
+        }, 150)
+      }
+      fn()
     }
   },
   computed: {
@@ -305,6 +350,34 @@ export default {
         })
         .sort((a, b) => {
           return a.rank - b.rank
+        })
+      return data
+    },
+    sucessRecords () {
+      const data = this.activityPeople
+        .map((p) => {
+          const record = this.signRecords.find(
+            (v) => v.userId === p.userId
+          ) || {
+            status: -1,
+            rank: 0,
+            tips: ''
+          }
+          return {
+            name: p.name,
+            userId: p.userId,
+            peopleId: p.peopleId,
+            status: record.status,
+            rank: record.rank,
+            recordId: record.recordId,
+            tips: record.tips,
+            signId: this.signId
+          }
+        })
+        .filter((d) => {
+          return (
+            d.status === RecordStatus.late || d.status === RecordStatus.success
+          )
         })
       return data
     },

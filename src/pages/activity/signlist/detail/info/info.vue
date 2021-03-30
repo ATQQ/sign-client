@@ -32,7 +32,7 @@
           round
           type="info"
           block
-          >更改状态</van-button
+          >更新批注</van-button
         >
       </view>
       <van-cell-group>
