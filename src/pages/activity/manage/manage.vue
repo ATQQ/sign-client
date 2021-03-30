@@ -7,14 +7,8 @@
       hairline
       contentPosition="center"
       customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
-    >
-      我创建的活动
-    </van-divider>
-    <van-empty
-      v-if="manageActivities.length === 0"
-      image="search"
-      description="空空如也,快去创建吧"
-    />
+    >我创建的活动</van-divider>
+    <van-empty v-if="manageActivities.length === 0" image="search" description="空空如也,快去创建吧" />
     <view class="activityList" v-else>
       <view v-for="a in manageActivities" :key="a.activityId">
         <van-swipe-cell right-width="65">
@@ -28,16 +22,20 @@
           </van-cell-group>
           <view slot="right">
             <!-- TODO: 删除逻辑 -->
-            <van-button type="danger">删除</van-button>
+            <van-button type="danger" @click="handleDelete(a.activityId)">删除</van-button>
           </view>
         </van-swipe-cell>
       </view>
     </view>
+    <van-dialog id="van-dialog" />
+    <van-toast id="van-toast" />
   </view>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Dialog from '../../../../wxcomponents/@vant/weapp/dist/dialog/dialog'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   mounted () {
     this.getManageActivities()
@@ -48,6 +46,21 @@ export default {
       uni.navigateTo({
         url: `../nav/nav?id=${id}&is_admin=true`
       })
+    },
+    handleDelete (id) {
+      Dialog.confirm({
+        title: '确认删除此活动吗?',
+        message: '此操作将会删除与该活动相关的一切数据'
+      })
+        .then(() => {
+          this.$api.activity.deleteActivity(id).then(() => {
+            this.getManageActivities()
+            Toast.success('删除成功')
+          })
+        })
+        .catch(() => {
+          // on cancel
+        })
     }
   },
   computed: {

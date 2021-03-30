@@ -27,8 +27,12 @@ function getJoinActivities () {
 function getActivityByPwd (pwd) {
   return http.get(`/activity/info/${pwd}`)
 }
-function getActivitySignDetail(id){
-	return http.get(`/activity/sign/${id}`)
+function getActivitySignDetail (id) {
+  return http.get(`/activity/sign/${id}`)
+}
+function deleteActivity (id) {
+  console.log(id)
+  return http.delete(`/activity/${id}`)
 }
 export default {
   getManageActivities,
@@ -36,5 +40,6 @@ export default {
   updateActivityInfo,
   getJoinActivities,
   getActivityByPwd,
-  getActivitySignDetail
+  getActivitySignDetail,
+  deleteActivity
 }
