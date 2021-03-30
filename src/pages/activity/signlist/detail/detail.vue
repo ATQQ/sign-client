@@ -6,7 +6,7 @@
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
         >加入活动口令</van-divider
       >
-      <view class="pwd p20">{{ activityPwd }}</view>
+      <view class="pwd p20" @click="()=>{setClipboardStr(activityPwd)}">{{ activityPwd }}</view>
       <!-- 状态 -->
       <view class="status p20">
         <van-tag :type="statusTag[signDetail.status]">{{
@@ -39,7 +39,7 @@
             customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
             >定位签到口令</van-divider
           >
-          <view class="pwd p20">{{ signDetail.pwd }}</view>
+          <view class="pwd p20" @click="()=>{setClipboardStr(signDetail.pwd)}">{{ signDetail.pwd }}</view>
         </view>
       </view>
     </view>
@@ -187,6 +187,7 @@ import {
   RecordStatusTagType
 } from '../../../../constants/index.js'
 import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast.js'
+import { setClipboardStr } from '../../../../utils/device'
 export default {
   data () {
     return {
@@ -219,6 +220,7 @@ export default {
   methods: {
     ...mapActions('people', ['getActivityPeopleById']),
     ...mapActions('record', ['getSignRecordsById']),
+    setClipboardStr,
     handleFilterChange (e) {
       this.filter = e.detail.name
     },

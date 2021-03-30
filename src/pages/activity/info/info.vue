@@ -14,7 +14,7 @@
           :value="activity.nameFormat"
         />
         <van-cell title="预计人数" :value="activity.peopleCount" />
-        <van-cell title="活动口令" :value="activity.pwd" />
+        <van-cell @click="()=>{setClipboardStr(activity.pwd)}" title="活动口令" :value="activity.pwd" />
       </van-cell-group>
     </view>
     <view class="btn-container">
@@ -104,6 +104,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import { setClipboardStr } from '../../../utils/device'
 export default {
   data () {
     return {
@@ -132,6 +133,7 @@ export default {
   },
   methods: {
     ...mapActions('activity', ['updateActivityInfo']),
+    setClipboardStr,
     handleRewrite () {
       let {
         activityId,

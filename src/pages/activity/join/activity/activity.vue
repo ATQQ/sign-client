@@ -114,12 +114,15 @@ export default {
             Toast.fail('活动不存在')
             return
           }
-          Toast.success('加入成功')
-
+          Toast.success({
+            message: '加入成功',
+            onClose: () => {
+              uni.navigateBack({
+                delta: 2
+              })
+            }
+          })
           this.getJoinActivities()
-          setTimeout(() => {
-            uni.navigateBack()
-          }, 1100)
         })
     }
   }
