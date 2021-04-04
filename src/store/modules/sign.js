@@ -1,11 +1,15 @@
 import api from '../../api/index.js'
 const state = {
-  signList: []
+  signList: [],
+  createNew: false
 }
 
 const mutations = {
   setSignList (state, payload) {
     state.signList = payload
+  },
+  changeCreateNew (state, payload) {
+    state.createNew = payload
   }
 }
 

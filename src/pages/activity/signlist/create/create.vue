@@ -79,8 +79,8 @@
 
 <script>
 import { myLocation, location } from './location'
-import getDistance from '../../../../utils/getDistance'
 import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -111,6 +111,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('sign', ['changeCreateNew']),
     chooseLocation () {
       uni.chooseLocation({
         success: (e) => {
@@ -125,7 +126,6 @@ export default {
     updateLocation (latitude, longitude) {
       this.markers[1].latitude = latitude
       this.markers[1].longitude = longitude
-      console.log(getDistance(...this.markers))
     },
     getNowLocation () {
       uni.getLocation({
@@ -164,6 +164,7 @@ export default {
           this.locationInfo
         )
         .then((res) => {
+          this.changeCreateNew(true)
           Toast.success({
             message: '创建成功',
             onClose: () => {

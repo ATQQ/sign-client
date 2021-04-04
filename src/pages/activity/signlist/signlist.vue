@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 import { SignStatusText, SignStatus } from '../../../constants/index.js'
 
 export default {
@@ -43,8 +43,15 @@ export default {
       }
     }
   },
+  onShow: function () {
+    if (this.createNew) {
+      this.handleDetail(this.signs[0].signId)
+      this.changeCreateNew(false)
+    }
+  },
   methods: {
     ...mapActions('sign', ['getSignListByActivityId']),
+    ...mapMutations('sign', ['changeCreateNew']),
     refresh () {
       setTimeout(() => {
         if (this.stop) return
@@ -59,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('sign', ['signList']),
+    ...mapState('sign', ['signList', 'createNew']),
     signs () {
       return this.signList.slice(0).reverse()
     }
