@@ -12,7 +12,7 @@
           :value="activeName"
           @change="handleActiveChange"
         >
-          <van-collapse-item v-for="(d, idx) in records" :key="idx" :name="idx">
+          <van-collapse-item v-for="(d, idx) in records" :key="idx" :name="`${idx}`">
             <view slot="title">
               <view class="cell-title">
                 <text class="time">
