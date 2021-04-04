@@ -6,7 +6,15 @@
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
         >加入活动口令</van-divider
       >
-      <view class="pwd p20" @click="()=>{setClipboardStr(activityPwd)}">{{ activityPwd }}</view>
+      <view
+        class="pwd p20"
+        @click="
+          () => {
+            setClipboardStr(activityPwd);
+          }
+        "
+        >{{ activityPwd }}</view
+      >
       <!-- 状态 -->
       <view class="status p20">
         <van-tag :type="statusTag[signDetail.status]">{{
@@ -39,7 +47,15 @@
             customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
             >定位签到口令</van-divider
           >
-          <view class="pwd p20" @click="()=>{setClipboardStr(signDetail.pwd)}">{{ signDetail.pwd }}</view>
+          <view
+            class="pwd p20"
+            @click="
+              () => {
+                setClipboardStr(signDetail.pwd);
+              }
+            "
+            >{{ signDetail.pwd }}</view
+          >
         </view>
       </view>
     </view>
@@ -316,6 +332,9 @@ export default {
     },
     signDetail () {
       this.signData = this.signList.find((v) => v.signId === this.signId)
+      if (!this.signData) {
+        return this.signData
+      }
       const { status, endTime } = this.signData
       if (status === this.SignStatus.ing && this.remainTime === 0) {
         this.remainTime = new Date(endTime).getTime() - Date.now()

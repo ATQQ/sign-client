@@ -239,7 +239,10 @@ export default {
               // 换取token
               // 存入vuex
               this.setToken(token)
-              Toast.success('登录成功')
+              Toast.success({
+                message: '登录成功',
+                forbidClick: true
+              })
               this.showLogin = false
             } catch (error) {
               Toast.success(`登陆失败\n${JSON.stringify(error)}`)
