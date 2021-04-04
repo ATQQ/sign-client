@@ -18,8 +18,14 @@ function rewritePeopleName (peopleId, name, activityId) {
   })
 }
 
+function deleteActivityPeople (peopleId, activityId) {
+  return http.delete(`/people/${peopleId}`, {
+    activityId
+  })
+}
 export default {
   joinActivity,
   getActiityPeople,
-  rewritePeopleName
+  rewritePeopleName,
+  deleteActivityPeople
 }

@@ -31,7 +31,6 @@ function getActivitySignDetail (id) {
   return http.get(`/activity/sign/${id}`)
 }
 function deleteActivity (id) {
-  console.log(id)
   return http.delete(`/activity/${id}`)
 }
 export default {

@@ -21,7 +21,6 @@
             />
           </van-cell-group>
           <view slot="right">
-            <!-- TODO: 删除逻辑 -->
             <van-button type="danger" @click="handleDelete(a.activityId)">删除</van-button>
           </view>
         </van-swipe-cell>

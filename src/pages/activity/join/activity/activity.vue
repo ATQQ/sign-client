@@ -8,15 +8,23 @@
           {{ activity.description }}
         </view>
       </van-cell>
-      <van-cell title="活动口令" :value="activity.pwd" />
       <van-cell
-        title="要求姓名格式"
-        label="名称处内容填写参照此格式"
-        :value="activity.nameFormat"
+        title="活动口令"
+        :value="activity.pwd"
+        @click="
+          () => {
+            setClipboardStr(activity.pwd);
+          }
+        "
       />
     </van-cell-group>
     <view class="group-title" style="padding-top: 32px">需填写信息</view>
     <van-cell-group>
+      <van-cell title="要求名称格式" label="名称处内容填写参照此格式">
+        <view class="break-all" style="color: red">
+          {{ activity.nameFormat }}
+        </view>
+      </van-cell>
       <van-field
         label="口令"
         :value="activity.pwd"
@@ -38,19 +46,19 @@
             name1 = e.detail;
           }
         "
-        placeholder="在活动中显示的名称"
+        placeholder="按要求输入你的名称"
         required
         input-align="right"
       />
       <van-field
-        label="名称"
+        label="二次确认名称"
         :value="name2"
         @change="
           (e) => {
             name2 = e.detail;
           }
         "
-        placeholder="请再次输入名称"
+        placeholder="请再次输入"
         required
         input-align="right"
       />
@@ -73,6 +81,7 @@
 <script>
 import { mapActions, mapMutations } from 'vuex'
 import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import { setClipboardStr } from '../../../../utils/device'
 export default {
   data () {
     return {
@@ -98,6 +107,7 @@ export default {
   methods: {
     ...mapActions('activity', ['getJoinActivities']),
     ...mapMutations('sign', ['changeAutoSign']),
+    setClipboardStr,
     handleJoin () {
       if (this.name1 !== this.name2) {
         Toast.fail('两次输入的姓名不一致')
