@@ -29,7 +29,7 @@ http.interceptors.response.use(
   (response) => {
     const { code } = response.data
     if (code !== 0) {
-      let errMsg = '未知错误'
+      let errMsg = ''
       switch (code) {
         case StatusCode.nowPower:
           errMsg = '没有权限'
@@ -50,31 +50,33 @@ http.interceptors.response.use(
         case StatusCode.people.notExist:
           errMsg = '活动不存在'
           break
-        case StatusCode.record
-          .alreadySign:
-          errMsg = '已经签过到了'
-          break
-        case StatusCode.record.fail:
-          errMsg = '签到失败'
-          break
-        case StatusCode.record
-          .invalidPWD:
-          errMsg = '无效口令'
-          break
-        case StatusCode.record
-          .invalidQRCode:
-          errMsg = '无效二维码'
-          break
-        case StatusCode.record.notJoin:
-          errMsg = '还未加入活动'
-          break
-        case StatusCode.record.signOver:
-          errMsg = '签到已结束'
-          break
+        // case StatusCode.record
+        //   .alreadySign:
+        //   errMsg = '已经签过到了'
+        //   break
+        // case StatusCode.record.fail:
+        //   errMsg = '签到失败'
+        //   break
+        // case StatusCode.record
+        //   .invalidPWD:
+        //   errMsg = '无效口令'
+        //   break
+        // case StatusCode.record
+        //   .invalidQRCode:
+        //   errMsg = '无效二维码'
+        //   break
+        // case StatusCode.record.notJoin:
+        //   errMsg = '还未加入活动'
+        //   break
+        // case StatusCode.record.signOver:
+        //   errMsg = '签到已结束'
+        //   break
       }
-      uni.showToast({
-        title: errMsg
-      })
+      if (errMsg) {
+        uni.showToast({
+          title: errMsg
+        })
+      }
       return Promise.reject(
         response.data
       )

@@ -6,7 +6,7 @@
         clearable
         label="名称"
         :value="name"
-        @change="
+        @input="
           (e) => {
             name = e.detail;
           }
@@ -21,7 +21,7 @@
         :value="description"
         type="textarea"
         autosize
-        @change="
+        @input="
           (e) => {
             description = e.detail;
           }
@@ -34,7 +34,7 @@
         clearable
         label="姓名格式"
         :value="format"
-        @change="
+        @input="
           (e) => {
             format = e.detail;
           }

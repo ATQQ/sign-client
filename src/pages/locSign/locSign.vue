@@ -121,7 +121,7 @@ export default {
               pwd: this.pwd
             })
             Toast.success({
-              message: '准备加入活动',
+              message: ' 还未加入活动\n\n准备跳转加入',
               onClose: () => {
                 uni.navigateTo({
                   url: `../activity/join/join?pwd=${data.pwd}`

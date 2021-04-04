@@ -28,7 +28,7 @@
       <van-field
         label="口令"
         :value="activity.pwd"
-        @change="
+        @input="
           (e) => {
             activity.pwd = e.detail;
           }
@@ -41,7 +41,7 @@
       <van-field
         label="名称"
         :value="name1"
-        @change="
+        @input="
           (e) => {
             name1 = e.detail;
           }
@@ -53,7 +53,7 @@
       <van-field
         label="二次确认名称"
         :value="name2"
-        @change="
+        @input="
           (e) => {
             name2 = e.detail;
           }

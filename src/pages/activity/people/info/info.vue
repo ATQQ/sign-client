@@ -7,7 +7,7 @@
         clearable
         label="成员名称"
         :value="name"
-        @change="
+        @input="
           (e) => {
             name = e.detail;
           }

@@ -41,7 +41,7 @@
           placeholder="在此处输入新的批注内容"
           label="成员名称"
           :value="tips"
-          @change="
+          @input="
             (e) => {
               tips = e.detail;
             }

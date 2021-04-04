@@ -161,6 +161,11 @@ export default {
       uni.scanCode({
         onlyFromCamera: true,
         success: (res) => {
+          Toast.loading({
+            message: '签到中...',
+            duration: 0, // 持续展示 toast
+            forbidClick: true
+          })
           if (res.scanType !== 'QR_CODE') {
             Toast.fail('不是二维码')
             return
@@ -180,24 +185,18 @@ export default {
       })
     },
     qrCodeSign (qrcode) {
-      uni.showLoading({
-        title: '签到中',
-        mask: true
-      })
       this.$api.record
         .startRecord(SignMethod.qrCode, {
           qrcode
         })
         .then(() => {
-          uni.hideLoading()
           Toast.success('签到成功')
         })
         .catch((err) => {
-          uni.hideLoading()
           const { code, data } = err
           if (code === StatusCode.record.notJoin) {
             Toast.success({
-              message: '准备跳转加入',
+              message: ' 还未加入活动\n\n准备跳转加入',
               onClose: () => {
                 this.changeAutoSign({
                   method: SignMethod.qrCode,
@@ -208,10 +207,23 @@ export default {
                 })
               }
             })
+            return
           }
-          if (code === StatusCode.record.invalidQRCode) {
-            Toast.fail(' 二维码过期 \n\n请重新扫一扫')
+          let errMsg = ''
+          switch (code) {
+            case StatusCode.record.signOver:
+              errMsg = '签到已结束'
+              break
+            case StatusCode.record.alreadySign:
+              errMsg = '已经签过到了'
+              break
+            case StatusCode.record.invalidQRCode:
+              errMsg = ' 二维码过期 \n\n请重新扫一扫'
+              break
+            default:
+              errMsg = '签到失败'
           }
+          Toast.fail(errMsg)
         })
     },
     /**
@@ -277,12 +289,17 @@ export default {
   },
   onShow () {
     if (this.autoSign.status && this.autoSign.method === SignMethod.qrCode) {
+      Toast.loading({
+        message: '签到中...',
+        duration: 0, // 持续展示 toast
+        forbidClick: true
+      })
+      this.qrCodeSign(this.autoSign.pwd)
       this.changeAutoSign({
         status: false,
         method: '',
         pwd: ''
       })
-      this.qrCodeSign(this.autoSign.pwd)
     }
   }
 }

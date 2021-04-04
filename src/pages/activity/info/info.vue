@@ -48,7 +48,7 @@
         <van-field
           label="活动名称"
           :value="newName"
-          @change="
+          @input="
             (e) => {
               newName = e.detail;
             }
@@ -62,7 +62,7 @@
           autosize
           label="简介"
           :value="newDes"
-          @change="
+          @input="
             (e) => {
               newDes = e.detail;
             }
@@ -74,7 +74,7 @@
         <van-field
           label="姓名格式"
           :value="newFormat"
-          @change="
+          @input="
             (e) => {
               newFormat = e.detail;
             }
@@ -86,7 +86,7 @@
         <van-field
           label="预计人数"
           :value="newCount"
-          @change="
+          @input="
             (e) => {
               newCount = e.detail;
             }
