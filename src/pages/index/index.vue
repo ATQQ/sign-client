@@ -2,7 +2,10 @@
   <view class="content">
     <!-- 登录 -->
     <view class="avatar-container card">
-      <image class="avatar" :src="avatar"></image>
+      <view class="avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <!-- <image class="avatar" :src="avatar"></image> -->
       <button
         v-if="showLogin"
         class="login"
@@ -13,9 +16,12 @@
       </button>
       <view v-else class="info">
         你好，
-        <text class="nickname">{{ nickname }}</text>
+        <!-- <text class="nickname">{{ nickname }}</text> -->
+        <open-data type="userNickName"></open-data>
+        <!-- <text class="nickname"></text> -->
         <!-- TODO:性别用颜色加以区分 -->
-        <text class="sex">{{ sex }}</text>
+        <!-- <open-data type="userGender" lang="zh_CN"></open-data> -->
+        <!-- <text class="sex">{{ sex }}</text> -->
         <view class="re-login" @click="handleGetUserInfo">
           <van-icon name="replay" />
         </view>
@@ -28,9 +34,8 @@
           hairline
           contentPosition="center"
           customStyle="margin-top:0; color: #1989fa; border-color: #1989fa; font-size: 16px;"
+          >参与签到</van-divider
         >
-          参与签到
-        </van-divider>
       </view>
       <view class="funs plr20">
         <van-row>
@@ -64,9 +69,8 @@
           hairline
           contentPosition="center"
           customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
+          >活动相关</van-divider
         >
-          活动相关
-        </van-divider>
       </view>
       <view class="plr20 funs">
         <van-row gutter="20">
@@ -92,9 +96,8 @@
           hairline
           contentPosition="center"
           customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
+          >其它</van-divider
         >
-          其它
-        </van-divider>
       </view>
       <view class="plr20 funs">
         <van-row gutter="20">
@@ -171,7 +174,9 @@ export default {
             switch (type) {
               case 'sign':
                 this.$api.record
-                  .startRecord(SignMethod.qrCode, { qrcode })
+                  .startRecord(SignMethod.qrCode, {
+                    qrcode
+                  })
                   .then(() => {
                     uni.hideLoading()
                     Toast.success('签到成功')
@@ -202,22 +207,11 @@ export default {
      * 授权获取基本信息并登录
      */
     handleGetUserInfo () {
-      // TODO
-      // console.log('wx.getUserProfile', uni.canIUse('getUserProfile'))
-      // uni.getUserProfile({
-      //  lang:'zh_CN',
-      //  desc:"用户身份认证",
-      //  success:function(e){
-      //   console.log(e);
-      //  },
-      //  fail:function(e){
-      //   console.log(e);
-      //  }
-      // })
       uni.showLoading({
         title: '登陆中',
         mask: true
       })
+      // 只能获取匿名的无用信息,换用open-data展示头像与昵称
       getUserInfo()
         .then(([err, res]) => {
           if (!res) {
