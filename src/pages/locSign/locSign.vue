@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { SignMethod, StatusCode } from '../../constants/index'
 import { myLocation } from '../activity/signlist/create/location'
@@ -60,14 +60,27 @@ export default {
   mounted () {
     this.getNowLocation()
   },
+  computed: {
+    ...mapState('sign', ['autoSign'])
+  },
+  onShow () {
+    if (this.autoSign.status && this.autoSign.method === SignMethod.gps) {
+      this.changeAutoSign({
+        status: false,
+        method: '',
+        pwd: ''
+      })
+      this.handleSign()
+    }
+  },
   methods: {
+    ...mapMutations('sign', ['changeAutoSign']),
     getNowLocation () {
       // eslint-disable-next-line promise/param-names
       return new Promise((res, rej) => {
         uni.getLocation({
           type: 'gcj02',
           success: (e) => {
-            console.log(e)
             this.markers[0].latitude = e.latitude
             this.markers[0].longitude = e.longitude
             Toast.success('成功获取位置信息')
@@ -103,6 +116,10 @@ export default {
           const { code, data } = err
           uni.hideLoading()
           if (code === StatusCode.record.notJoin) {
+            this.changeAutoSign({
+              method: SignMethod.gps,
+              pwd: this.pwd
+            })
             Toast.success({
               message: '准备加入活动',
               onClose: () => {
@@ -118,15 +135,13 @@ export default {
             case StatusCode.record.signOver:
               errMsg = '签到已结束'
               break
-            case StatusCode.record
-              .alreadySign:
+            case StatusCode.record.alreadySign:
               errMsg = '已经签过到了'
               break
             case StatusCode.record.fail:
-              errMsg = '签到失败'
+              errMsg = ' 位置有误\n\n请刷新当前位置再试试'
               break
-            case StatusCode.record
-              .invalidPWD:
+            case StatusCode.record.invalidPWD:
               errMsg = '无效口令'
               break
             default:

@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     ...mapActions('activity', ['getJoinActivities']),
+    ...mapMutations('sign', ['changeAutoSign']),
     handleJoin () {
       if (this.name1 !== this.name2) {
         Toast.fail('两次输入的姓名不一致')
@@ -117,6 +118,9 @@ export default {
           Toast.success({
             message: '加入成功',
             onClose: () => {
+              this.changeAutoSign({
+                status: true
+              })
               uni.navigateBack({
                 delta: 2
               })

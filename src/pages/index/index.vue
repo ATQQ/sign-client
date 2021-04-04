@@ -34,8 +34,8 @@
           hairline
           contentPosition="center"
           customStyle="margin-top:0; color: #1989fa; border-color: #1989fa; font-size: 16px;"
-          >参与签到</van-divider
-        >
+          >参与签到
+        </van-divider>
       </view>
       <view class="funs plr20">
         <van-row>
@@ -69,8 +69,8 @@
           hairline
           contentPosition="center"
           customStyle="margin-top:0;color: #1989fa; border-color: #1989fa; font-size: 16px;"
-          >活动相关</van-divider
-        >
+          >活动相关
+        </van-divider>
       </view>
       <view class="plr20 funs">
         <van-row gutter="20">
@@ -121,7 +121,7 @@
 </template>
 <script>
 import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { Gender, SignMethod, StatusCode } from '../../constants/index'
 import { funsConfig, infoConfig } from './config'
 import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
@@ -146,12 +146,14 @@ export default {
   },
   computed: {
     ...mapState('user', ['avatar', 'nickname', 'gender']),
+    ...mapState('sign', ['autoSign']),
     sex () {
       return this.gender === Gender.MALE ? '♂' : '♀'
     }
   },
   methods: {
     ...mapActions('user', ['setUserInfo', 'setToken']),
+    ...mapMutations('sign', ['changeAutoSign']),
     /**
      * 扫一扫签到
      */
@@ -159,12 +161,7 @@ export default {
       uni.scanCode({
         onlyFromCamera: true,
         success: (res) => {
-          uni.showLoading({
-            title: '签到中',
-            mask: true
-          })
           if (res.scanType !== 'QR_CODE') {
-            uni.hideLoading()
             Toast.fail('不是二维码')
             return
           }
@@ -173,35 +170,49 @@ export default {
             const { type, qrcode } = data
             switch (type) {
               case 'sign':
-                this.$api.record
-                  .startRecord(SignMethod.qrCode, {
-                    qrcode
-                  })
-                  .then(() => {
-                    uni.hideLoading()
-                    Toast.success('签到成功')
-                  })
-                  .catch((err) => {
-                    const { code, data } = err
-                    if (code === StatusCode.record.notJoin) {
-                      Toast.success({
-                        message: '准备跳转加入',
-                        onClose: () => {
-                          uni.navigateTo({
-                            url: `../activity/join/join?pwd=${data.pwd}`
-                          })
-                        }
-                      })
-                    }
-                  })
+                this.qrCodeSign(qrcode)
                 break
             }
           } catch (e) {
-            uni.hideLoading()
             Toast.fail('不支持的二维码')
           }
         }
       })
+    },
+    qrCodeSign (qrcode) {
+      uni.showLoading({
+        title: '签到中',
+        mask: true
+      })
+      this.$api.record
+        .startRecord(SignMethod.qrCode, {
+          qrcode
+        })
+        .then(() => {
+          uni.hideLoading()
+          Toast.success('签到成功')
+        })
+        .catch((err) => {
+          uni.hideLoading()
+          const { code, data } = err
+          if (code === StatusCode.record.notJoin) {
+            Toast.success({
+              message: '准备跳转加入',
+              onClose: () => {
+                this.changeAutoSign({
+                  method: SignMethod.qrCode,
+                  pwd: qrcode
+                })
+                uni.navigateTo({
+                  url: `../activity/join/join?pwd=${data.pwd}`
+                })
+              }
+            })
+          }
+          if (code === StatusCode.record.invalidQRCode) {
+            Toast.fail(' 二维码过期 \n\n请重新扫一扫')
+          }
+        })
     },
     /**
      * 授权获取基本信息并登录
@@ -214,10 +225,10 @@ export default {
       // 只能获取匿名的无用信息,换用open-data展示头像与昵称
       getUserInfo()
         .then(([err, res]) => {
-          if (!res) {
-            this.showLogin = true
-            return
-          }
+          // if (!res) {
+          // this.showLogin = true
+          // return
+          // }
           const { nickName, gender, avatarUrl } = res?.userInfo
 
           // 存入vuex
@@ -245,7 +256,7 @@ export default {
               })
               this.showLogin = false
             } catch (error) {
-              Toast.success(`登陆失败\n${JSON.stringify(error)}`)
+              Toast.fail(` 登陆失败\n${error.msg}`)
               this.showLogin = true
             } finally {
               uni.hideLoading()
@@ -263,6 +274,16 @@ export default {
   },
   mounted () {
     this.handleGetUserInfo()
+  },
+  onShow () {
+    if (this.autoSign.status && this.autoSign.method === SignMethod.qrCode) {
+      this.changeAutoSign({
+        status: false,
+        method: '',
+        pwd: ''
+      })
+      this.qrCodeSign(this.autoSign.pwd)
+    }
   }
 }
 </script>
