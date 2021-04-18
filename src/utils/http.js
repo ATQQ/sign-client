@@ -9,24 +9,22 @@ http.defaults.headers = {
 }
 
 http.interceptors.request.use(
-  (config) => {
+  config => {
     // 所有请求都携带token
     Object.assign(config.headers, {
-      token: uni.getStorageSync(
-        'token'
-      )
+      token: uni.getStorageSync('token')
     })
     // 发送之前操作config
     return config
   },
-  (err) => {
+  err => {
     // 处理错误
     return Promise.reject(err)
   }
 )
 let goHome = false
 http.interceptors.response.use(
-  (response) => {
+  response => {
     const { code } = response.data
     if (code !== 0) {
       let errMsg = ''
@@ -38,7 +36,7 @@ http.interceptors.response.use(
             setTimeout(() => {
               goHome = false
               uni.reLaunch({
-                url: '/src/pages/index/index'
+                url: '/pages/index/index'
               })
             }, 1000)
           }
@@ -77,14 +75,12 @@ http.interceptors.response.use(
           title: errMsg
         })
       }
-      return Promise.reject(
-        response.data
-      )
+      return Promise.reject(response.data)
     }
     // 返回前操作
     return response.data
   },
-  (err) => {
+  err => {
     return Promise.reject(err)
   }
 )
