@@ -124,7 +124,7 @@ import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { Gender, SignMethod, StatusCode } from '../../constants/index'
 import { funsConfig, infoConfig } from './config'
-import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {

@@ -14,7 +14,15 @@
           :value="activity.nameFormat"
         />
         <van-cell title="预计人数" :value="activity.peopleCount" />
-        <van-cell @click="()=>{setClipboardStr(activity.pwd)}" title="活动口令" :value="activity.pwd" />
+        <van-cell
+          @click="
+            () => {
+              setClipboardStr(activity.pwd)
+            }
+          "
+          title="活动口令"
+          :value="activity.pwd"
+        />
       </van-cell-group>
     </view>
     <view class="btn-container">
@@ -49,8 +57,8 @@
           label="活动名称"
           :value="newName"
           @input="
-            (e) => {
-              newName = e.detail;
+            e => {
+              newName = e.detail
             }
           "
           placeholder="请输入新的活动名称"
@@ -63,8 +71,8 @@
           label="简介"
           :value="newDes"
           @input="
-            (e) => {
-              newDes = e.detail;
+            e => {
+              newDes = e.detail
             }
           "
           placeholder="请输入新的简介"
@@ -75,8 +83,8 @@
           label="姓名格式"
           :value="newFormat"
           @input="
-            (e) => {
-              newFormat = e.detail;
+            e => {
+              newFormat = e.detail
             }
           "
           placeholder="请输入新的姓名格式"
@@ -87,8 +95,8 @@
           label="预计人数"
           :value="newCount"
           @input="
-            (e) => {
-              newCount = e.detail;
+            e => {
+              newCount = e.detail
             }
           "
           placeholder="请输入预计人数"
@@ -103,7 +111,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { setClipboardStr } from '../../../utils/device'
 export default {
   data () {

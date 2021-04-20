@@ -13,7 +13,7 @@
         :value="activity.pwd"
         @click="
           () => {
-            setClipboardStr(activity.pwd);
+            setClipboardStr(activity.pwd)
           }
         "
       />
@@ -29,8 +29,8 @@
         label="口令"
         :value="activity.pwd"
         @input="
-          (e) => {
-            activity.pwd = e.detail;
+          e => {
+            activity.pwd = e.detail
           }
         "
         placeholder="请输入课程口令"
@@ -42,8 +42,8 @@
         label="名称"
         :value="name1"
         @input="
-          (e) => {
-            name1 = e.detail;
+          e => {
+            name1 = e.detail
           }
         "
         placeholder="按要求输入你的名称"
@@ -54,8 +54,8 @@
         label="二次确认名称"
         :value="name2"
         @input="
-          (e) => {
-            name2 = e.detail;
+          e => {
+            name2 = e.detail
           }
         "
         placeholder="请再次输入"
@@ -80,7 +80,7 @@
 
 <script>
 import { mapActions, mapMutations } from 'vuex'
-import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { setClipboardStr } from '../../../../utils/device'
 export default {
   data () {
@@ -113,31 +113,29 @@ export default {
         Toast.fail('两次输入的姓名不一致')
         return
       }
-      this.$api.people
-        .joinActivity(this.name1, this.activity.pwd)
-        .then((res) => {
-          const { code } = res
-          if (code === 10001) {
-            Toast.fail('已经在活动中了')
-            return
+      this.$api.people.joinActivity(this.name1, this.activity.pwd).then(res => {
+        const { code } = res
+        if (code === 10001) {
+          Toast.fail('已经在活动中了')
+          return
+        }
+        if (code === 10001) {
+          Toast.fail('活动不存在')
+          return
+        }
+        Toast.success({
+          message: '加入成功',
+          onClose: () => {
+            this.changeAutoSign({
+              status: true
+            })
+            uni.navigateBack({
+              delta: 2
+            })
           }
-          if (code === 10001) {
-            Toast.fail('活动不存在')
-            return
-          }
-          Toast.success({
-            message: '加入成功',
-            onClose: () => {
-              this.changeAutoSign({
-                status: true
-              })
-              uni.navigateBack({
-                delta: 2
-              })
-            }
-          })
-          this.getJoinActivities()
         })
+        this.getJoinActivities()
+      })
     }
   }
 }

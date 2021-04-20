@@ -7,8 +7,8 @@
         label="名称"
         :value="name"
         @input="
-          (e) => {
-            name = e.detail;
+          e => {
+            name = e.detail
           }
         "
         placeholder="请输入活动名称"
@@ -22,8 +22,8 @@
         type="textarea"
         autosize
         @input="
-          (e) => {
-            description = e.detail;
+          e => {
+            description = e.detail
           }
         "
         placeholder="请输入活动简介"
@@ -35,8 +35,8 @@
         label="姓名格式"
         :value="format"
         @input="
-          (e) => {
-            format = e.detail;
+          e => {
+            format = e.detail
           }
         "
         placeholder="(可选)用于提醒活动成员改名"
@@ -71,7 +71,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -100,7 +100,7 @@ export default {
       }
       this.$api.activity
         .createActivity(name, description, format, count)
-        .then((res) => {
+        .then(res => {
           if (res.code === 0) {
             Toast.success({
               message: '创建成功',

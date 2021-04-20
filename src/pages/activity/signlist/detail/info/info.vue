@@ -42,8 +42,8 @@
           label="成员名称"
           :value="tips"
           @input="
-            (e) => {
-              tips = e.detail;
+            e => {
+              tips = e.detail
             }
           "
         />
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import Toast from '../../../../../../wxcomponents/@vant/weapp/dist/toast/toast.js'
+import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast.js'
 import {
   RecordStatusText,
   RecordStatusTagType
@@ -92,7 +92,7 @@ export default {
   methods: {
     changeTips () {
       const { peopleId, signId } = this.record
-      this.$api.record.upRecordTips(peopleId, this.tips, signId).then((res) => {
+      this.$api.record.upRecordTips(peopleId, this.tips, signId).then(res => {
         Toast.success('修改成功')
         this.record.tips = this.tips
         this.tips = ''
@@ -102,7 +102,7 @@ export default {
       const { value } = e.detail
       const { status } = this.statusRange[+value]
       const { peopleId, signId } = this.record
-      this.$api.record.upRecordStatus(peopleId, status, signId).then((res) => {
+      this.$api.record.upRecordStatus(peopleId, status, signId).then(res => {
         Toast.success('修改成功')
         this.record.status = status
       })
@@ -111,5 +111,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

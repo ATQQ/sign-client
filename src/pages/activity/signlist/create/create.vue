@@ -79,7 +79,7 @@
 
 <script>
 import { myLocation, location } from './location'
-import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { mapMutations } from 'vuex'
 export default {
   data () {
@@ -114,7 +114,7 @@ export default {
     ...mapMutations('sign', ['changeCreateNew']),
     chooseLocation () {
       uni.chooseLocation({
-        success: (e) => {
+        success: e => {
           this.updateLocation(e.latitude, e.longitude)
         }
       })
@@ -130,7 +130,7 @@ export default {
     getNowLocation () {
       uni.getLocation({
         type: 'gcj02',
-        success: (e) => {
+        success: e => {
           this.markers[0].latitude = e.latitude
           this.markers[0].longitude = e.longitude
           this.markers[1].latitude = e.latitude
@@ -159,11 +159,11 @@ export default {
       this.$api.sign
         .createNewSign(
           this.activityId,
-          this.methods.map((v) => +v),
+          this.methods.map(v => +v),
           this.time,
           this.locationInfo
         )
-        .then((res) => {
+        .then(res => {
           this.changeCreateNew(true)
           Toast.success({
             message: '创建成功',
