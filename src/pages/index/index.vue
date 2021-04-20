@@ -124,7 +124,7 @@ import { getUserInfo, wxLogin } from '../../utils/userUtil.js'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { Gender, SignMethod, StatusCode } from '../../constants/index'
 import { funsConfig, infoConfig } from './config'
-import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -136,7 +136,7 @@ export default {
   onShareAppMessage () {
     return {
       title: '活动考勤助手',
-      path: '/src/pages/index/index'
+      path: '/pages/index/index'
     }
   },
   onShareTimeline () {
@@ -160,7 +160,7 @@ export default {
     handleScan () {
       uni.scanCode({
         onlyFromCamera: true,
-        success: (res) => {
+        success: res => {
           Toast.loading({
             message: '签到中...',
             duration: 0, // 持续展示 toast
@@ -192,7 +192,7 @@ export default {
         .then(() => {
           Toast.success('签到成功')
         })
-        .catch((err) => {
+        .catch(err => {
           const { code, data } = err
           if (code === StatusCode.record.notJoin) {
             Toast.success({
@@ -275,7 +275,7 @@ export default {
             }
           })
         })
-        .catch((err) => {
+        .catch(err => {
           uni.hideLoading()
           this.showLogin = true
         })
@@ -306,5 +306,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./index.scss";
+@import './index.scss';
 </style>

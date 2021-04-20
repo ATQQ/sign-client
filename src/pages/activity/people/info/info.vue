@@ -8,8 +8,8 @@
         label="成员名称"
         :value="name"
         @input="
-          (e) => {
-            name = e.detail;
+          e => {
+            name = e.detail
           }
         "
         placeholder="请输入新的名字"
@@ -42,7 +42,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {

@@ -29,7 +29,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
 export default {
   data () {
     return {
@@ -49,14 +49,14 @@ export default {
       // 获取活动信息
       this.$api.activity
         .getActivityByPwd(this.pwd)
-        .then((res) => {
+        .then(res => {
           uni.hideLoading()
           // 跳转加入活动页面
           uni.navigateTo({
             url: `activity/activity?activity=${JSON.stringify(res.data)}`
           })
         })
-        .catch((res) => {
+        .catch(res => {
           const { code } = res
           if (code === 10002) {
             Toast.fail('口令有误活动不存在')
@@ -77,5 +77,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./join.scss";
+@import './join.scss';
 </style>

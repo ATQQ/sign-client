@@ -37,8 +37,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
-import Dialog from '../../../../wxcomponents/@vant/weapp/dist/dialog/dialog'
+import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Dialog from '../../../wxcomponents/@vant/weapp/dist/dialog/dialog'
 export default {
   data () {
     return {
@@ -79,9 +79,7 @@ export default {
     people () {
       if (!this.searchWord) return this.activityPeople
 
-      return this.activityPeople.filter((v) =>
-        v.name.includes(this.searchWord)
-      )
+      return this.activityPeople.filter(v => v.name.includes(this.searchWord))
     }
   },
   onLoad (params) {
@@ -92,5 +90,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "./people.scss";
+@import './people.scss';
 </style>

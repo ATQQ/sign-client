@@ -10,7 +10,7 @@
         class="pwd p20"
         @click="
           () => {
-            setClipboardStr(activityPwd);
+            setClipboardStr(activityPwd)
           }
         "
         >{{ activityPwd }}</view
@@ -51,7 +51,7 @@
             class="pwd p20"
             @click="
               () => {
-                setClipboardStr(signDetail.pwd);
+                setClipboardStr(signDetail.pwd)
               }
             "
             >{{ signDetail.pwd }}</view
@@ -178,7 +178,7 @@
                   class="rank"
                   v-show="
                     d.status === RecordStatus.success ||
-                    d.status === RecordStatus.late
+                      d.status === RecordStatus.late
                   "
                   >{{ d.rank }}</text
                 >
@@ -202,7 +202,7 @@ import {
   RecordStatus,
   RecordStatusTagType
 } from '../../../../constants/index.js'
-import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast.js'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast.js'
 import { setClipboardStr } from '../../../../utils/device'
 export default {
   data () {
@@ -316,7 +316,7 @@ export default {
     ...mapState('record', ['signRecords']),
     successPer () {
       const sum = this.activityPeople.length
-      const success = this.signRecords.filter((s) => {
+      const success = this.signRecords.filter(s => {
         return (
           s.status === this.RecordStatus.success ||
           s.status === this.RecordStatus.late
@@ -331,7 +331,7 @@ export default {
       )
     },
     signDetail () {
-      this.signData = this.signList.find((v) => v.signId === this.signId)
+      this.signData = this.signList.find(v => v.signId === this.signId)
       if (!this.signData) {
         return this.signData
       }
@@ -345,10 +345,8 @@ export default {
     },
     records () {
       const data = this.activityPeople
-        .map((p) => {
-          const record = this.signRecords.find(
-            (v) => v.userId === p.userId
-          ) || {
+        .map(p => {
+          const record = this.signRecords.find(v => v.userId === p.userId) || {
             status: -1,
             rank: 0,
             tips: ''
@@ -364,7 +362,7 @@ export default {
             signId: this.signId
           }
         })
-        .filter((d) => {
+        .filter(d => {
           if (this.filter === 'all') return true
           if (this.filter === 'not') return d.status === -1
           return d.status === RecordStatus[this.filter]
@@ -376,10 +374,8 @@ export default {
     },
     sucessRecords () {
       const data = this.activityPeople
-        .map((p) => {
-          const record = this.signRecords.find(
-            (v) => v.userId === p.userId
-          ) || {
+        .map(p => {
+          const record = this.signRecords.find(v => v.userId === p.userId) || {
             status: -1,
             rank: 0,
             tips: ''
@@ -395,7 +391,7 @@ export default {
             signId: this.signId
           }
         })
-        .filter((d) => {
+        .filter(d => {
           return (
             d.status === RecordStatus.late || d.status === RecordStatus.success
           )
@@ -436,5 +432,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "./detail.scss";
+@import './detail.scss';
 </style>

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "types": [
+      "@dcloudio/types",
+      "miniprogram-api-typings",
+      "mini-types"
+    ],
+    "allowJs": true
+  },
+  "exclude": [
+    "babel.config.js",
+    "jest.config.js",
+    "postcss.config.js",
+    "dist",
+    "src"
+  ]
+}

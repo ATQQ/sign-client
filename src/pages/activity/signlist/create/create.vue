@@ -4,9 +4,8 @@
       <van-divider
         contentPosition="center"
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >选择签到方式</van-divider
       >
-        选择签到方式
-      </van-divider>
       <van-checkbox-group
         style="display: flex; justify-content: space-around"
         :value="methods"
@@ -16,13 +15,25 @@
         <van-checkbox name="2">定位</van-checkbox>
       </van-checkbox-group>
     </view>
+    <view v-if="methods.includes('1')">
+      <van-divider
+        contentPosition="center"
+        customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >二维码刷新周期</van-divider
+      >
+      <picker mode="selector" :range="timeRange" @change="handleChangeQrTime">
+        <view class="time">
+          <van-button size="small" type="info" round>更改</van-button>
+          <text>{{ qrTime }} s</text>
+        </view>
+      </picker>
+    </view>
     <view v-if="methods.includes('2')">
       <van-divider
         contentPosition="center"
         customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >选择签到位置</van-divider
       >
-        选择签到位置
-      </van-divider>
       <view class="group-title">蓝色表示我的位置,红色表示签到点</view>
       <view class="p20">
         <van-button type="info" block round @click="getNowLocation"
@@ -50,17 +61,36 @@
       ></map>
       <view class="group-title">建议打开GPS,提高精确度</view>
       <view class="group-title">可直接点击小地图更改签到位置</view>
+      <van-divider
+        contentPosition="center"
+        customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+        >有效签到范围(半径)</van-divider
+      >
+      <van-field
+        clearable
+        label="签到范围"
+        :value="signDistance"
+        type="number"
+        autosize
+        @input="
+          e => {
+            signDistance = +e.detail
+          }
+        "
+        placeholder="请设置有效签到范围(m)"
+        required
+        input-align="right"
+      />
     </view>
     <van-divider
       contentPosition="center"
       customStyle="color: #1989fa; border-color: #1989fa; font-size: 1rem;"
+      >持续时长</van-divider
     >
-      持续时长
-    </van-divider>
     <picker mode="selector" :range="timeRange" @change="handleSelectorChange">
       <view class="time">
         <van-button size="small" type="info" round>更改</van-button>
-        <text>{{ time }} mins </text>
+        <text>{{ time }} mins</text>
       </view>
     </picker>
     <view class="p20">
@@ -79,7 +109,7 @@
 
 <script>
 import { myLocation, location } from './location'
-import Toast from '../../../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { mapMutations } from 'vuex'
 export default {
   data () {
@@ -87,6 +117,8 @@ export default {
       methods: [],
       locationInfo: '',
       time: 5,
+      qrTime: 10,
+      signDistance: 50,
       activityId: -1,
       timeRange: Array.from({
         length: 60
@@ -114,7 +146,7 @@ export default {
     ...mapMutations('sign', ['changeCreateNew']),
     chooseLocation () {
       uni.chooseLocation({
-        success: (e) => {
+        success: e => {
           this.updateLocation(e.latitude, e.longitude)
         }
       })
@@ -130,7 +162,7 @@ export default {
     getNowLocation () {
       uni.getLocation({
         type: 'gcj02',
-        success: (e) => {
+        success: e => {
           this.markers[0].latitude = e.latitude
           this.markers[0].longitude = e.longitude
           this.markers[1].latitude = e.latitude
@@ -147,9 +179,16 @@ export default {
     handleSelectorChange (e) {
       this.time = +e.detail.value + 1
     },
+    handleChangeQrTime (e) {
+      this.qrTime = +e.detail.value + 1
+    },
     handleCreate () {
       if (this.methods.length === 0) {
         Toast.fail('请至少选择一个签到方式')
+        return
+      }
+      if (this.methods.includes('2') && this.signDistance < 1) {
+        Toast.fail('签到范围必须大于1m')
         return
       }
       this.locationInfo = {
@@ -159,11 +198,15 @@ export default {
       this.$api.sign
         .createNewSign(
           this.activityId,
-          this.methods.map((v) => +v),
+          this.methods.map(v => +v),
           this.time,
-          this.locationInfo
+          this.locationInfo,
+          {
+            qrTime: this.qrTime,
+            signDistance: this.signDistance
+          }
         )
-        .then((res) => {
+        .then(res => {
           this.changeCreateNew(true)
           Toast.success({
             message: '创建成功',

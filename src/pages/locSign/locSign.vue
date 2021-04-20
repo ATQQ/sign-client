@@ -47,7 +47,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import Toast from '../../../wxcomponents/@vant/weapp/dist/toast/toast'
+import Toast from '../../wxcomponents/@vant/weapp/dist/toast/toast'
 import { SignMethod, StatusCode } from '../../constants/index'
 import { myLocation } from '../activity/signlist/create/location'
 export default {
@@ -80,13 +80,13 @@ export default {
       return new Promise((res, rej) => {
         uni.getLocation({
           type: 'gcj02',
-          success: (e) => {
+          success: e => {
             this.markers[0].latitude = e.latitude
             this.markers[0].longitude = e.longitude
             Toast.success('成功获取位置信息')
             res(e)
           },
-          fail: (err) => {
+          fail: err => {
             Toast.fail('请手动点击获取当前位置')
             rej(err)
           }
@@ -112,7 +112,7 @@ export default {
           uni.hideLoading()
           Toast.success('签到成功')
         })
-        .catch((err) => {
+        .catch(err => {
           const { code, data } = err
           uni.hideLoading()
           if (code === StatusCode.record.notJoin) {
@@ -155,5 +155,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "./index.scss";
+@import './index.scss';
 </style>
