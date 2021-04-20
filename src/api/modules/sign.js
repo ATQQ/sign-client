@@ -3,11 +3,12 @@ import http from '../../utils/http'
 function getActiitySignList (activityId) {
   return http.get(`/sign/list/${activityId}`)
 }
-function createNewSign (activityId, method, time, location) {
+function createNewSign (activityId, method, time, location, options) {
   return http.post(`/sign/${activityId}`, {
     method,
     time,
-    location
+    location,
+    ...options
   })
 }
 function updateSignStatus (id, status, time = 0) {

@@ -11,6 +11,7 @@
     "babel.config.js",
     "jest.config.js",
     "postcss.config.js",
-    "dist"
+    "dist",
+    "src"
   ]
 }
