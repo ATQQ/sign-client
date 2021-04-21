@@ -9,6 +9,15 @@ function login (code, nickname, gender, avatar) {
   })
 }
 
+function webLink () {
+  return http.get('/user/web')
+}
+
+function loginCode () {
+  return http.get('/user/login/code')
+}
 export default {
-  login
+  login,
+  webLink,
+  loginCode
 }

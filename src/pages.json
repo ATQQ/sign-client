@@ -116,6 +116,12 @@
         "navigationBarTitleText": "签到概况",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/web/web",
+      "style": {
+        "navigationBarTitleText": "获取Web访问链接"
+      }
     }
   ],
   "globalStyle": {

@@ -29,5 +29,12 @@ export const infoConfig = [
     color: '#07c160',
     bg: 'bg-green',
     url: '../activity/participate/participate'
+  },
+  {
+    text: '电脑访问',
+    icon: 'diamond-o',
+    color: '#1989fa',
+    bg: 'bg-blue',
+    url: '../web/web'
   }
 ]

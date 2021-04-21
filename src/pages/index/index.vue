@@ -89,7 +89,6 @@
         </van-row>
       </view>
     </view>
-    <!-- 暂定 -->
     <view class="card">
       <view class="plr20 fun-title">
         <van-divider
@@ -100,8 +99,8 @@
         >
       </view>
       <view class="plr20 funs">
-        <van-row gutter="20">
-          <van-col span="24" v-for="(fun, idx) in infoConfig" :key="idx">
+        <van-row gutter="24">
+          <van-col span="12" v-for="(fun, idx) in infoConfig" :key="idx">
             <navigator class="fun-item" :url="fun.url">
               <view class="icon-container" :class="[`icon-${fun.bg}`]">
                 <van-icon
