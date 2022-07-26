@@ -2,8 +2,7 @@ import axios from 'axios-miniprogram'
 import { StatusCode } from '../constants'
 
 const http = axios
-http.defaults.baseURL =
-  'https://service-agthqjcf-1256505457.cd.apigw.tencentcs.com/release'
+http.defaults.baseURL = 'https://hdkq.sugarat.top/api'
 http.defaults.headers = {
   'content-Type': 'application/json'
 }
